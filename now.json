@@ -1,7 +1,6 @@
 {
   "alias": [
-    "findaneighbor-admin",
-    "admin.findaneighbor"
+    "findaneighbor-admin"
   ],
   "version": 2,
   "routes": [
