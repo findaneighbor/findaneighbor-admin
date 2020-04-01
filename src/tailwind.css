@@ -1,15 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
 @tailwind base;
+
+* {
+  font-family: 'Inter', sans-serif;
+}
 
 @tailwind components;
 
+.btn {
+  @apply
+    inline-flex
+    items-center
+    justify-center
+    px-5
+    py-3
+    border
+    border-transparent
+    text-base
+    leading-6
+    font-medium
+    rounded-md
+    bg-gray-100
+    transition
+    duration-150
+    ease-in-out;
+}
+
+.btn:hover {
+  @apply bg-gray-200;
+}
+
+.btn:focus {
+  @apply outline-none shadow-outline;
+}
+
+.btn:disabled {
+  @apply bg-gray-500 !important;
+}
+
+.btn-secondary {
+  @apply bg-secondary-500 text-white;
+}
+
+.btn-secondary:hover {
+  @apply bg-secondary-600;
+}
+
+.btn-primary {
+  @apply bg-primary-500 text-white;
+}
+
+.btn-primary:hover {
+  @apply bg-primary-600;
+}
+
 @tailwind utilities;
+
+.throb {
+  animation: throb 1s linear infinite;
+}
 
 @responsive {
   .flex-center {
     @apply flex justify-center items-center;
   }
+}
 
-  .grid {
-    display: grid;
+@keyframes throb {
+  40% {
+    transform: scale(1);
+  }
+  55% {
+    transform: scale(1.2);
+  }
+  70% {
+    transform: scale(1);
+  }
+  85% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
   }
 }

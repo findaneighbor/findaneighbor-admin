@@ -1,10 +1,24 @@
 import React from 'react'
 import { render } from 'react-dom'
+import { App } from './sections'
+import { Auth0Provider } from './context'
+import { BrowserRouter } from 'react-router-dom'
+import { ApolloContextProvider } from './context/ApolloProvider'
 
-export const App = props => {
-  return <main className='h-screen flex-center'>
-    <h1 className='text-green-500'>Find A Neighbor Admin</h1>
-  </main>
-}
 
-render(<App />, document.getElementById('app'))
+render(
+  <BrowserRouter>
+    <Auth0Provider
+      domain='findaneighbor.auth0.com'
+      client_id='V7kGY6oKqSovAyj7vhFmvyZEzsKIw4SJ'
+      redirect_uri={window.location.origin}
+      scope='openid email profile'
+      audience='findaneighbor'
+    >
+      <ApolloContextProvider>
+        <App />
+      </ApolloContextProvider>
+    </Auth0Provider>
+  </BrowserRouter>,
+  document.getElementById('app')
+)
