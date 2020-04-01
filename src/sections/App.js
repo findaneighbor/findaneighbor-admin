@@ -13,7 +13,7 @@ export const App = props => {
     <nav className='h-12 flex bg-indigo-600 shadow-lg text-gray-300'>
       <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-indigo-500'>Data Dashboard</NavLink>
       <NavLink to='/website-editor' className={linkClasses} activeClassName='text-white bg-indigo-500'>Website Editor</NavLink>
-      {isAuthenticated && <button className={`ml-auto ${linkClasses}`} onClick={e => logout()}>Logout</button>}
+      {isAuthenticated && <button className={`ml-auto ${linkClasses}`} onClick={e => logout({ returnTo: window.location.origin })}>Logout</button>}
     </nav>
     <Switch>
       <PrivateRoute path='/dashboard' component={withRouter(Dashboard)} />
