@@ -8,6 +8,66 @@
 
 @tailwind components;
 
+.main-grid {
+  @apply grid row-gap-2;
+  grid-template:
+    'controls' auto
+    'req-head' 3rem
+    'requests' auto
+    'off-head' 3rem
+    'offers'   auto
+  / 1fr;
+}
+
+@screen sm {
+  .main-grid {
+    @apply col-gap-4 row-gap-0;
+    grid-template:
+      'controls control'  auto
+      'req-head off-head' 3rem
+      'requests offers'   calc(100vh - 6rem)
+    / 1fr       1fr;
+  }
+}
+
+@screen lg {
+  .main-grid {
+    grid-template:
+      'req-head            off-head             controls'             3rem
+      'requests            offers               controls'             1fr
+    / minmax(360px, 420px) minmax(360px, 420px) minmax(240px, 400px);
+  }
+}
+
+@screen xl {
+  .main-grid {
+    grid-template:
+      'req-head off-head controls' 3rem
+      'requests offers   controls' 1fr
+    / 420px     420px    1fr;
+  }
+}
+
+.req-head {
+  grid-area: req-head;
+}
+
+.off-head {
+  grid-area: off-head;
+}
+
+.requests {
+  grid-area: requests;
+}
+
+.offers {
+  grid-area: offers;
+}
+
+.controls {
+  grid-area: controls;
+}
+
 .btn {
   @apply
     inline-flex
@@ -55,10 +115,18 @@
   @apply bg-primary-600;
 }
 
+.pill {
+  @apply py-1 px-2 rounded-full shadow border border-transparent font-medium;
+}
+
 @tailwind utilities;
 
 .throb {
   animation: throb 1s linear infinite;
+}
+
+.striped:nth-child(even) {	
+  @apply bg-gray-100;	
 }
 
 @responsive {

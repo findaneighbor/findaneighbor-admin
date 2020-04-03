@@ -11,7 +11,7 @@ export const REQUESTS_FOR_HELP_SUB = gql`
       zip
       text_permission
       affiliations
-      request_needs {
+      request_needs(order_by: { need_type: { order: asc, id: desc } }) {
         id
         description
         status
@@ -36,7 +36,9 @@ export const OFFERS_TO_HELP_SUB = gql`
       text_permission
       affiliations
       background
-      offer_needs {
+      motivation
+      advocate
+      offer_needs(order_by: { need_type: { order: asc, id: desc } }) {
         id
         description
         need_type {
