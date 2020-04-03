@@ -26,6 +26,7 @@
   "homepage": "https://github.com/tehpsalmist/findaneighbor-admin#readme",
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "latest",
+    "autoprefixer": "^9.7.5",
     "parcel": "^1.12.4",
     "tailwindcss": "latest"
   },

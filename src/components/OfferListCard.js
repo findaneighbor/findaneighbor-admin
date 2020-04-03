@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
 
-export const OfferListCard = ({ className = '', style = {}, id, name, address, zip, email, phone, text_permission, affiliations, background, motivation, advocate, offer_needs = [], showInfo }) => {
+export const OfferListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, background, motivation, advocate, offer_needs = [], showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
 
   useEffect(() => {
@@ -38,6 +38,9 @@ export const OfferListCard = ({ className = '', style = {}, id, name, address, z
             {phone || 'none'}
           </span>
         </div>
+        <p className='mb-2 text-primary-400'>
+          Signed Up: {new Date(created_at).toLocaleString('en-US')}
+        </p>
         <p className='text-primary-400 mb-4'><strong className='text-primary-500'>Affiliations:</strong> {affiliations}</p>
         <p className='text-primary-400 mb-4'><strong className='text-primary-500'>Background:</strong> {background}</p>
         <p className='text-primary-400 mb-4'><strong className='text-primary-500'>Motivation:</strong> {motivation}</p>

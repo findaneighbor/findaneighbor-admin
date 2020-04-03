@@ -4,7 +4,7 @@ import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan } from '@fortawesome/fr
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
 import { StatusDropdown } from './StatusDropdown'
 
-export const RequestListCard = ({ className = '', style = {}, id, name, address, zip, email, phone, text_permission, affiliations, request_needs = [], showInfo }) => {
+export const RequestListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, request_needs = [], showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
 
   useEffect(() => {
@@ -20,7 +20,7 @@ export const RequestListCard = ({ className = '', style = {}, id, name, address,
         </a>
       </div>
       <button key={id} className='w-8 h-8 self-start btn btn-secondary rounded-full shadow py-1 px-2 mr-1' onClick={() => setExpanded(e => !e)}>
-        <FontAwesomeIcon icon={expanded ? faMinus : faPlus} className='' />
+        <FontAwesomeIcon icon={expanded ? faMinus : faPlus} />
       </button>
     </div>
     {expanded
@@ -36,6 +36,9 @@ export const RequestListCard = ({ className = '', style = {}, id, name, address,
             {phone || 'none'}
           </span>
         </div>
+        <p className='mb-2 text-primary-400'>
+          Signed Up: {new Date(created_at).toLocaleString('en-US')}
+        </p>
         <p key='affiliations' className='text-primary-400 mb-4'>
           <strong className='text-primary-500'>Affiliations:</strong> {affiliations}
         </p>

@@ -1,9 +1,24 @@
 import { gql } from 'apollo-boost';
 
 export const REQUESTS_FOR_HELP_SUB = gql`
-  subscription requestsForHelp {
-    request_for_help {
+  subscription requestsForHelp(
+    $zip: String,
+    $needList: [Int!],
+    $needStatuses: [String!],
+    $order: [request_for_help_order_by!]
+  ) {
+    request_for_help(
+      where: {
+        _and: [
+          { zip: { _eq: $zip } },
+          { request_needs: { need_type_id: { _in: $needList } } },
+          { request_needs: { status: { _in: $needStatuses } } },
+        ]
+      },
+      order_by: $order
+    ) {
       id
+      created_at
       address
       email
       name
@@ -25,9 +40,24 @@ export const REQUESTS_FOR_HELP_SUB = gql`
 `
 
 export const OFFERS_TO_HELP_SUB = gql`
-  subscription offersToHelp {
-    offer_to_help {
+  subscription offersToHelp(
+    $zip: String,
+    $needList: [Int!],
+    $advocate: Boolean,
+    $order: [offer_to_help_order_by!]
+  ) {
+    offer_to_help(
+      where: {
+        _and: [
+          { zip: { _eq: $zip } },
+          { offer_needs: { need_type_id: { _in: $needList } } },
+          { advocate: { _eq: $advocate } }
+        ]
+      },
+      order_by: $order
+    ) {
       id
+      created_at
       address
       email
       name
@@ -46,6 +76,15 @@ export const OFFERS_TO_HELP_SUB = gql`
           id
         }
       }
+    }
+  }
+`
+
+export const NEED_TYPES = gql`
+  query NeedTypes {
+    need_type(order_by: {order: asc, id: desc}) {
+      id
+      label
     }
   }
 `
