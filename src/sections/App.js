@@ -4,7 +4,7 @@ import { NavLink, BrowserRouter as Router, Switch, Route, withRouter, Redirect }
 import { Dashboard, WebsiteEditor } from '.'
 import { PrivateRoute, PleaseLogin } from '../components'
 
-const linkClasses = 'p-4 hover:bg-indigo-500 border-none leading-none'
+const linkClasses = 'px-4 flex-center hover:bg-indigo-500 border-none leading-none'
 
 export const App = props => {
   const { isAuthenticated, loginWithPopup, loading, logout } = useAuth0()
