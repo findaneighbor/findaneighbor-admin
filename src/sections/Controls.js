@@ -247,15 +247,7 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
 
           setOfferVariables(v => ({ ...v, zip }))
         }} />
-        <label className='flex items-center cursor-pointer mb-4'>
-          <input type='checkbox' className='form-checkbox mr-2' checked={offerVariables.advocate || false} onChange={e => {
-            const checked = e.target.checked
-            
-            setOfferVariables(v => ({ ...v, advocate: checked || null }))
-          }} />
-          Show Neighborhood Advocate Candidates
-        </label>
-        <div className='border border-secondary-400 rounded-md p-2'>
+        <div className='border border-secondary-400 rounded-md p-2 mb-4'>
           <span>Filter By Need</span>
           {needTypes.map(({ id, label }) => <label className='flex items-center cursor-pointer' key={id}>
             <input className='form-checkbox mr-2' type='checkbox' checked={offerNeedList[id] || false} onChange={e => {
@@ -273,6 +265,14 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
             {label}
           </label>)}
         </div>
+        <label className='flex items-center cursor-pointer'>
+          <input type='checkbox' className='form-checkbox mr-2' checked={offerVariables.advocate || false} onChange={e => {
+            const checked = e.target.checked
+            
+            setOfferVariables(v => ({ ...v, advocate: checked || null }))
+          }} />
+          Show Neighborhood Advocate Candidates
+        </label>
       </div>
     </div>
   </div>
