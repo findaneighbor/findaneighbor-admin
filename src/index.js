@@ -5,6 +5,9 @@ import { Auth0Provider } from './context'
 import { BrowserRouter } from 'react-router-dom'
 import { ApolloContextProvider } from './context/ApolloProvider'
 
+if (process.env.NODE_ENV === 'development') {
+  document.title = 'Local | Find A Neighbor | Admin'
+}
 
 render(
   <BrowserRouter>
