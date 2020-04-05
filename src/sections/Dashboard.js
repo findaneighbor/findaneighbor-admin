@@ -8,7 +8,10 @@ import { statuses } from '../utilities'
 
 export const Dashboard = ({ className = '', style = {} }) => {
   const [offerVariables, setOfferVariables] = useState({
+    name: null,
     zip: null,
+    email: null,
+    phone: null,
     needList: null,
     advocate: null,
     order: {
@@ -17,7 +20,10 @@ export const Dashboard = ({ className = '', style = {} }) => {
     }
   })
   const [requestVariables, setRequestVariables] = useState({
+    name: null,
     zip: null,
+    email: null,
+    phone: null,
     needList: null,
     needStatuses: statuses.filter(s => !['completed', 'withdrawn'].includes(s)),
     order: {
