@@ -23,7 +23,7 @@
   .main-grid {
     @apply col-gap-4 row-gap-0;
     grid-template:
-      'controls control'  auto
+      'controls controls'  auto
       'req-head off-head' 3rem
       'requests offers'   calc(100vh - 6rem)
     / 1fr       1fr;

@@ -38,21 +38,21 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
     {expanded
       ? <>
         <div className='flex justify-between sm:flex-col md:flex-row mb-2'>
-          <span className='mr-2 text-primary-400 whitespace-normal break-words'>
-            <FontAwesomeIcon icon={faEnvelope} className='mr-1' />
+          <span className='mr-2 text-gray-600 whitespace-normal break-words'>
+            <FontAwesomeIcon icon={faEnvelope} className='mr-1 text-primary-400' />
             {email || 'none'}
           </span>
-          <span className='text-primary-400 whitespace-normal break-words'>
+          <span className='text-gray-600 whitespace-normal break-words'>
             {phone && !text_permission && <FontAwesomeIcon icon={faBan} className='mr-1 text-red-400' />}
-            <FontAwesomeIcon icon={faMobileAlt} className='mr-1' />
+            <FontAwesomeIcon icon={faMobileAlt} className='mr-1 text-primary-400' />
             {phone || 'none'}
           </span>
         </div>
         <p className='mb-2 text-primary-400'>
-          Signed Up: {new Date(created_at).toLocaleString('en-US')}
+          Signed Up: <span className='text-gray-600'>{new Date(created_at).toLocaleString('en-US')}</span>
         </p>
-        <p key='affiliations' className='text-primary-400 mb-4'>
-          <strong className='text-primary-500'>Affiliations:</strong> {affiliations}
+        <p key='affiliations' className='text-gray-600 mb-4'>
+          <strong className='text-primary-400'>Affiliations:</strong> {affiliations}
         </p>
         <div className='-mx-1 md:-mx-2'>
           <h3 className='text-lg text-secondary-500 pl-2'>Needs</h3>
@@ -62,7 +62,7 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
                 <h4 className='flex items-center text-primary-500 font-bold'>{label}</h4>
                 <StatusDropdown status={status} id={id} />
               </div>
-              <p className='text-primary-400'>{description}</p>
+              <p className='text-gray-600'>{description}</p>
             </div>
           })}
         </div>

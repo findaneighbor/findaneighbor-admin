@@ -70,6 +70,7 @@ export const OFFERS_TO_HELP_SUB = gql`
       motivation
       advocate
       greeted
+      active
       offer_needs(order_by: { need_type: { order: asc, id: desc } }) {
         id
         description
@@ -102,6 +103,14 @@ export const SET_REQUEST_GREETED = gql`
 export const SET_OFFER_GREETED = gql`
   mutation setOfferGreeted($greeted: Boolean!, $id: Int!) {
     update_offer_to_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
+      affected_rows
+    }
+  }
+`
+
+export const SET_OFFER_ACTIVE = gql`
+  mutation setOfferActive($active: Boolean!, $id: Int!) {
+    update_offer_to_help(where: { id: { _eq: $id } }, _set: { active: $active }) {
       affected_rows
     }
   }

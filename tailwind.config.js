@@ -20,6 +20,7 @@ module.exports = {
         ...theme('spacing')
       }),
       spacing: {
+        36: '9rem',
         xs: '20rem',
         sm: '24rem',
         md: '28rem',
