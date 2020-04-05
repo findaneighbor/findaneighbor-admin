@@ -115,6 +115,14 @@
   @apply bg-primary-600;
 }
 
+.expand-btn {
+  @apply w-8 h-8 rounded-full shadow py-1 px-2 bg-secondary-100 text-secondary-500;
+}
+
+.expand-btn:hover {
+  @apply bg-secondary-200;
+}
+
 .pill {
   @apply py-1 px-2 rounded-full shadow border border-transparent font-medium;
 }

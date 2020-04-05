@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
-import { StatusDropdown, MarkGreeted } from '.'
+import { StatusDropdown, MarkGreeted, ExpandButton } from '.'
 
 export const RequestListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, greeted, request_needs = [], showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
@@ -13,7 +13,7 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
   }, [showInfo])
 
   return <div className={`p-1 md:p-2 rounded-md shadow-md ${className}`} key={id}>
-    <div className='flex justify-between'>
+    <div className='flex justify-between mb-2'>
       <div>
         <h3 className={`relative inline-block w-full text-xl font-semibold cursor-pointer ${greeted ? 'text-primary-500' : 'text-red-500'}`}>
           <a
@@ -31,9 +31,7 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
           {address} / {zip}
         </a>
       </div>
-      <button key={id} className='w-8 h-8 self-start btn btn-secondary rounded-full shadow py-1 px-2 mr-1' onClick={() => setExpanded(e => !e)}>
-        <FontAwesomeIcon icon={expanded ? faMinus : faPlus} />
-      </button>
+      <ExpandButton expanded={expanded} setExpanded={setExpanded} />
     </div>
     {expanded
       ? <>

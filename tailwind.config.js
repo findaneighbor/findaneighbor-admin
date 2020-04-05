@@ -5,7 +5,11 @@ module.exports = {
     extend: {
       colors: {
         primary: colors.indigo,
-        secondary: colors.teal
+        secondary: {
+          ...colors.teal,
+          150: '#dbfff9',
+          200: '#d7fbf4'
+        }
       },
       minHeight: theme => ({
         ...theme('spacing')

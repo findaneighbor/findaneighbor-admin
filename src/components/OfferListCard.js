@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
-import { MarkGreeted, ActiveStatus } from '.'
+import { MarkGreeted, ActiveStatus, ExpandButton } from '.'
 
 export const OfferListCard = ({
   className = '',
@@ -32,9 +32,9 @@ export const OfferListCard = ({
   }, [showInfo])
 
   return <div className={`p-1 md:p-2 rounded-md shadow-md ${className}`} key={id}>
-    <div className='flex justify-between'>
+    <div className='flex justify-between mb-2'>
       <div>
-        <h3 className={`relative inline-block w-full text-xl font-semibold ${greeted ? active ? 'text-primary-500' : 'text-gray-400' : 'text-red-500'}`}>
+        <h3 className={`relative inline-block w-full text-xl font-semibold ${active ? greeted ? 'text-primary-500' : 'text-red-500' : 'text-gray-400'}`}>
           <a
             className='cursor-pointer'
             tabIndex='0'
@@ -51,9 +51,7 @@ export const OfferListCard = ({
           {address} / {zip}
         </a>
       </div>
-      <button key={id} className='w-8 h-8 self-start btn btn-secondary rounded-full shadow py-1 px-2 mr-1' onClick={() => setExpanded(e => !e)}>
-        <FontAwesomeIcon icon={expanded ? faMinus : faPlus} />
-      </button>
+      <ExpandButton expanded={expanded} setExpanded={setExpanded} />
     </div>
     {expanded
       ? <>
@@ -74,8 +72,8 @@ export const OfferListCard = ({
           </p>
           <ActiveStatus id={id} active={active} />
         </div>
-        <p className='text-gray-600 mb-4'><strong className='text-primary-400'>Affiliations:</strong> {affiliations}</p>
-        <p className='text-gray-600 mb-4'><strong className='text-primary-400'>Background:</strong> {background}</p>
+        <p className='text-gray-600 mb-2'><strong className='text-primary-400'>Affiliations:</strong> {affiliations}</p>
+        <p className='text-gray-600 mb-2'><strong className='text-primary-400'>Background:</strong> {background}</p>
         <p className='text-gray-600 mb-4'><strong className='text-primary-400'>Motivation:</strong> {motivation}</p>
         <div className='-mx-1 md:-mx-2'>
           <h3 className='text-lg text-secondary-500 pl-1 md:pl-2'>Offering</h3>
