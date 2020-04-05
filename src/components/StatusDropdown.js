@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { getRequestStatusDecor } from '../utilities'
+import { getRequestStatusDecor, statuses } from '../utilities'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useMutation } from '@apollo/react-hooks'
 import { UPDATE_STATUS } from '../graphql'
@@ -25,8 +25,8 @@ export const StatusDropdown = ({ className = '', style = {}, status, id }) => {
       {status}
       <FontAwesomeIcon icon={icon} className='ml-2' />
     </button>
-    {show && <ul className='absolute top-auto left-0 rounded-lg shadow-md z-30 bg-white text-left w-auto'>
-      {['requested', 'greeted', 'matched', 'completed', 'ongoing']
+    {show && <ul className='absolute top-auto right-0 rounded-lg shadow-md z-30 bg-white'>
+      {statuses
         .filter(s => s !== status)
         .map(s => {
           const { textColor, icon } = getRequestStatusDecor(s)

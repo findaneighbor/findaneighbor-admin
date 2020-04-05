@@ -26,6 +26,7 @@ export const REQUESTS_FOR_HELP_SUB = gql`
       zip
       text_permission
       affiliations
+      greeted
       request_needs(order_by: { need_type: { order: asc, id: desc } }) {
         id
         description
@@ -68,6 +69,7 @@ export const OFFERS_TO_HELP_SUB = gql`
       background
       motivation
       advocate
+      greeted
       offer_needs(order_by: { need_type: { order: asc, id: desc } }) {
         id
         description
@@ -85,6 +87,22 @@ export const NEED_TYPES = gql`
     need_type(order_by: {order: asc, id: desc}) {
       id
       label
+    }
+  }
+`
+
+export const SET_REQUEST_GREETED = gql`
+  mutation setRequestGreeted($greeted: Boolean!, $id: Int!) {
+    update_request_for_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
+      affected_rows
+    }
+  }
+`
+
+export const SET_OFFER_GREETED = gql`
+  mutation setOfferGreeted($greeted: Boolean!, $id: Int!) {
+    update_offer_to_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
+      affected_rows
     }
   }
 `

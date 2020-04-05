@@ -4,6 +4,7 @@ import { REQUESTS_FOR_HELP_SUB, OFFERS_TO_HELP_SUB } from '../graphql'
 import { useLogError } from '../hooks'
 import { RequestListCard, OfferListCard } from '../components'
 import { Controls } from '.'
+import { statuses } from '../utilities'
 
 export const Dashboard = ({ className = '', style = {} }) => {
   const [offerVariables, setOfferVariables] = useState({
@@ -18,7 +19,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
   const [requestVariables, setRequestVariables] = useState({
     zip: null,
     needList: null,
-    needStatuses: ['requested', 'greeted', 'matched', 'ongoing'],
+    needStatuses: statuses.filter(s => !['completed', 'withdrawn'].includes(s)),
     order: {
       created_at: 'desc',
       zip: null

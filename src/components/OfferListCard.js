@@ -1,10 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
+import { MarkGreeted } from '.'
 
-export const OfferListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, background, motivation, advocate, offer_needs = [], showInfo }) => {
+export const OfferListCard = ({
+  className = '',
+  style = {},
+  id,
+  created_at,
+  name,
+  address,
+  zip,
+  email,
+  phone,
+  text_permission,
+  affiliations,
+  background,
+  motivation,
+  advocate,
+  greeted,
+  active,
+  offer_needs = [],
+  showInfo
+}) => {
   const [expanded, setExpanded] = useState(showInfo)
+  const [markingGreeted, setMarkingGreeted] = useState(false)
 
   useEffect(() => {
     setExpanded(showInfo)
@@ -13,9 +34,18 @@ export const OfferListCard = ({ className = '', style = {}, id, created_at, name
   return <div className={`p-1 md:p-2 rounded-md shadow-md ${className}`} key={id}>
     <div className='flex justify-between'>
       <div>
-        <h3 className='text-xl text-primary-500 font-semibold'>
-          {advocate && <FontAwesomeIcon icon={faHandHoldingHeart} className='mr-2 text-secondary-500' />}
-          {name}
+        <h3 className={`relative inline-block w-full text-xl font-semibold ${greeted ? 'text-primary-500' : 'text-red-500'}`}>
+          <a
+            className='cursor-pointer'
+            tabIndex='0'
+            onClick={e => setMarkingGreeted(g => !g)}
+            onKeyPress={e => e.key === 'Enter' && setMarkingGreeted(g => !g)}
+          >
+            {advocate && <FontAwesomeIcon icon={faHandHoldingHeart} className='mr-2 text-secondary-500' />}
+            {name}
+            {!greeted && <FontAwesomeIcon icon={faCommentSlash} className='ml-2' />}
+          </a>
+          {markingGreeted && <MarkGreeted id={id} greeted={greeted} hide={() => setMarkingGreeted(false)} offer />}
         </h3>
         <a className='text-secondary-500' href={googleMapsURL(address, zip)} target='_blank' rel='noopener noreferrer'>
           {address} / {zip}

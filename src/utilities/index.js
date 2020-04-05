@@ -1,6 +1,8 @@
-import { faQuestion, faCheck, faUserFriends, faSync, faRunning, faComment } from '@fortawesome/free-solid-svg-icons';
+import { faQuestion, faCheck, faHandsHelping, faSync, faPeopleArrows, faTimes } from '@fortawesome/free-solid-svg-icons';
 
 export const googleMapsURL = (address = '', zip = '') => `https://google.com/maps/place/${address.split(' ').join('+')},+${zip}`
+
+export const statuses = ['requested', 'pending', 'matched', 'completed', 'ongoing', 'withdrawn']
 
 export const getRequestStatusDecor = status => {
   switch (status) {
@@ -11,16 +13,16 @@ export const getRequestStatusDecor = status => {
         bgTextColor: 'text-red-600',
         textColor: 'text-red-500'
       }
-    case 'greeted':
+    case 'pending':
       return {
-        icon: faComment,
+        icon: faPeopleArrows,
         bgColor: 'bg-orange-100',
         bgTextColor: 'text-orange-600',
         textColor: 'text-orange-500'
       }
     case 'matched':
       return {
-        icon: faUserFriends,
+        icon: faHandsHelping,
         bgColor: 'bg-yellow-100',
         bgTextColor: 'text-yellow-600',
         textColor: 'text-yellow-500'
@@ -38,6 +40,13 @@ export const getRequestStatusDecor = status => {
         bgColor: 'bg-blue-100',
         bgTextColor: 'text-blue-600',
         textColor: 'text-blue-500'
+      }
+    case 'withdrawn':
+      return {
+        icon: faTimes,
+        bgColor: 'bg-gray-100',
+        bgTextColor: 'text-gray-600',
+        textColor: 'text-gray-500'
       }
     default:
       return {

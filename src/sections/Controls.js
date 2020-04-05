@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useQuery } from '@apollo/react-hooks'
 import { NEED_TYPES } from '../graphql'
 import { TextInput } from '../components'
+import { statuses } from '../utilities'
 
 export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariables, requestVariables, setRequestVariables }) => {
   const [enableRequestZipSort, setEnableRequestZipSort] = useState(requestVariables.order.zip !== null)
@@ -223,7 +224,7 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
         </div>
         <div className='border border-primary-400 rounded-md p-2'>
           <span>Filter By Status</span>
-          {['requested', 'greeted', 'matched', 'completed', 'ongoing'].map(status => <label className='flex items-center cursor-pointer' key={status}>
+          {statuses.map(status => <label className='flex items-center cursor-pointer' key={status}>
             <input className='form-checkbox mr-2' type='checkbox' checked={requestNeedStatuses[status] || false} onChange={e => {
               const checked = e.target.checked
 

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
-import { StatusDropdown } from './StatusDropdown'
+import { StatusDropdown, MarkGreeted } from '.'
 
-export const RequestListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, request_needs = [], showInfo }) => {
+export const RequestListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, greeted, request_needs = [], showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
+  const [markingGreeted, setMarkingGreeted] = useState(false)
 
   useEffect(() => {
     setExpanded(showInfo)
@@ -14,7 +15,18 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
   return <div className={`p-1 md:p-2 rounded-md shadow-md ${className}`} key={id}>
     <div className='flex justify-between'>
       <div>
-        <h3 className='text-xl text-primary-500 font-semibold'>{name}</h3>
+        <h3 className={`relative inline-block w-full text-xl font-semibold cursor-pointer ${greeted ? 'text-primary-500' : 'text-red-500'}`}>
+          <a
+            className='cursor-pointer'
+            tabIndex='0'
+            onClick={e => setMarkingGreeted(g => !g)}
+            onKeyPress={e => e.key === 'Enter' && setMarkingGreeted(g => !g)}
+          >
+            {name}
+            {!greeted && <FontAwesomeIcon icon={faCommentSlash} className='ml-2' />}
+          </a>
+          {markingGreeted && <MarkGreeted id={id} greeted={greeted} hide={() => setMarkingGreeted(false)} request />}
+        </h3>
         <a className='text-secondary-500' href={googleMapsURL(address, zip)} target='_blank' rel='noopener noreferrer'>
           {address} / {zip}
         </a>
