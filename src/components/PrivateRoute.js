@@ -24,7 +24,6 @@ export const PrivateRoute = ({ component: Component, path, ...rest }) => {
 
 export const PleaseLogin = ({ isAuthenticated, loading, ...props }) => {
   const { loginWithPopup, user } = useAuth0()
-  console.log(user)
 
   return <div className='h-full w-full flex-center flex-col'>
     <h1 className='text-primary-500 text-2xl mb-8'>Find A Neighbor Admin</h1>
