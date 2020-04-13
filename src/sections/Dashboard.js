@@ -59,7 +59,10 @@ export const Dashboard = ({ className = '', style = {} }) => {
   useEffect(() => request_for_help && setRequests(request_for_help), [request_for_help])
 
   return <main className='max-h-content min-h-content overflow-scroll px-1 md:px-4 main-grid'>
-    <h2 className='req-head text-2xl text-left text-primary-400 font-medium self-center pl-2'>Requests For Help</h2>
+    <h2 className='req-head text-2xl text-left text-primary-400 font-medium self-center pl-2'>
+      Requests For Help
+      <span className='ml-2 text-xl'>({requests.length})</span>
+    </h2>
     <ul className='requests flex flex-no-wrap items-stretch h-auto sm:block sm:h-full overflow-scroll'>
       {requests.map(request => (
         <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={request.id}>
@@ -67,7 +70,10 @@ export const Dashboard = ({ className = '', style = {} }) => {
         </li>
       ))}
     </ul>
-    <h2 className='off-head text-2xl text-left text-secondary-400 font-medium self-center pl-2'>Offers To Help</h2>
+    <h2 className='off-head text-2xl text-left text-secondary-400 font-medium self-center pl-2'>
+      Offers To Help
+      <span className='ml-2 text-xl'>({offers.length})</span>
+    </h2>
     <ul className='offers flex flex-no-wrap items-stretch h-auto sm:block h-full overflow-scroll'>
       {offers.map(offer => (
         <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={offer.id}>
