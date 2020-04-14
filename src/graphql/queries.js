@@ -127,3 +127,32 @@ export const SET_OFFER_ACTIVE = gql`
     }
   }
 `
+
+export const EMAIL_TEMPLATES = gql`
+  subscription watchEmailTemplates {
+    email_template (order_by: { updated_at: desc }) {
+      id
+      name
+      subject
+      message
+      created_at
+      updated_at
+    }
+  }
+`
+
+export const INSERT_EMAIL_TEMPLATE = gql`
+  mutation insertEmailTemplate ($name: String!, $subject: String!, $message: String!) {
+    insert_email_template(objects: { name: $name, subject: $subject, message: $message }) {
+      affected_rows
+    }
+  }
+`
+
+export const UPDATE_EMAIL_TEMPLATE = gql`
+  mutation updateEmailTemplate ($id: Int!, $name: String!, $subject: String!, $message: String!) {
+    update_email_template(where: { id: { _eq: $id } }, _set: { name: $name, subject: $subject, message: $message }) {
+      affected_rows
+    }
+  }
+`
