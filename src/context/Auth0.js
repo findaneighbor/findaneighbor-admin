@@ -67,7 +67,7 @@ export const Auth0Provider = withRouter(({
 
     initAuth0()
     // eslint-disable-next-line
-  }, []);
+  }, [])
 
   const loginWithPopup = async (params = {}) => {
     if (!auth0Client) return
