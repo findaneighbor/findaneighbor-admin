@@ -214,6 +214,14 @@
   @apply border-red-400;
 }
 
+.form-description {
+  @apply w-full py-1 px-2 text-base leading-6 appearance-none border border-gray-300 shadow-none bg-white rounded-md;
+}
+
+.form-description:focus {
+  @apply outline-none shadow-outline border-blue-300;
+}
+
 @tailwind utilities;
 
 .throb {

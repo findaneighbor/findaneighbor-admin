@@ -104,26 +104,27 @@ export const NEED_TYPES = gql`
   }
 `
 
-export const SET_REQUEST_GREETED = gql`
-  mutation setRequestGreeted($greeted: Boolean!, $id: Int!) {
-    update_request_for_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
-      affected_rows
+export const EMAIL_TEMPLATES = gql`
+  subscription watchEmailTemplates {
+    email_template (order_by: { updated_at: desc }) {
+      id
+      name
+      subject
+      message
+      created_at
+      updated_at
     }
   }
 `
 
-export const SET_OFFER_GREETED = gql`
-  mutation setOfferGreeted($greeted: Boolean!, $id: Int!) {
-    update_offer_to_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
-      affected_rows
-    }
-  }
-`
-
-export const SET_OFFER_ACTIVE = gql`
-  mutation setOfferActive($active: Boolean!, $id: Int!) {
-    update_offer_to_help(where: { id: { _eq: $id } }, _set: { active: $active }) {
-      affected_rows
+export const USER_SUBSCRIPTION = gql`
+  subscription userSub {
+    user (where: { email: { _is_null: false } }, order_by: { created_at: desc_nulls_last }) {
+      email
+      id
+      role
+      name
+      picture
     }
   }
 `

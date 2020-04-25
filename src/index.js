@@ -9,15 +9,25 @@ if (process.env.NODE_ENV === 'development') {
   document.title = 'Local | Find A Neighbor | Admin'
 }
 
+const auth0ClientSettings = process.env.NODE_ENV === 'development'
+  ? {
+    domain: 'findaneighbor-dev.auth0.com',
+    client_id: '50ctBEqu45Y3puh17DGDJKmcMpQu5vKt',
+    redirect_uri: window.location.origin,
+    scope: 'openid email profile',
+    audience: 'findaneighbor-dev'
+  }
+  : {
+    domain: 'findaneighbor.auth0.com',
+    client_id: 'V7kGY6oKqSovAyj7vhFmvyZEzsKIw4SJ',
+    redirect_uri: window.location.origin,
+    scope: 'openid email profile',
+    audience: 'findaneighbor'
+  }
+
 render(
   <BrowserRouter>
-    <Auth0Provider
-      domain='findaneighbor.auth0.com'
-      client_id='V7kGY6oKqSovAyj7vhFmvyZEzsKIw4SJ'
-      redirect_uri={window.location.origin}
-      scope='openid email profile'
-      audience='findaneighbor'
-    >
+    <Auth0Provider {...auth0ClientSettings}>
       <ApolloContextProvider>
         <App />
       </ApolloContextProvider>

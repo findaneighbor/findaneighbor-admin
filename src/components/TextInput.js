@@ -1,11 +1,12 @@
 import React from 'react'
 
-export const TextInput = ({ innerRef, labelClass = '', inputClass = '', type = 'text', placeholder, pattern, label, value, onChange, className = '', required, id }) => {
+export const TextInput = ({ innerRef, labelClass = '', inputClass = '', type = 'text', placeholder, pattern, label, value, onChange, className = '', required, id, tabIndex = 0 }) => {
   return <div className={className}>
     <label htmlFor={id || label} className={labelClass}>
       {label} {required && <span className='text-secondary-400'>*</span>}
     </label>
     <input
+      tabIndex={tabIndex}
       ref={innerRef}
       id={id || label}
       className={`text-input ${inputClass}`}
