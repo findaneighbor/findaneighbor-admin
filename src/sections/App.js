@@ -1,27 +1,34 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAuth0 } from '../hooks'
 import { NavLink, BrowserRouter as Router, Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Dashboard, WebsiteEditor, EmailEditor } from '.'
-import { PrivateRoute, PleaseLogin } from '../components'
+import { Dashboard, WebsiteEditor, EmailEditor, AccessControl } from '.'
+import { PrivateRoute, PleaseLogin, Unauthorized } from '../components'
+import { getRole, isAuthorized, isAdmin } from '../utilities'
 
-const linkClasses = 'px-4 flex-center hover:bg-indigo-500 border-none leading-none'
+const linkClasses = 'px-2 sm:px-4 flex-center text-center hover:bg-indigo-500 border-none leading-none'
 
 export const App = props => {
-  const { isAuthenticated, loginWithPopup, loading, logout } = useAuth0()
+  const { isAuthenticated, loginWithPopup, loading, logout, getIdTokenClaims, authToken, user } = useAuth0()
+
+  const canView = isAuthorized(user)
 
   return <div className='h-screen'>
-    <nav className='h-12 flex bg-indigo-600 shadow-lg text-gray-300'>
-      <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-indigo-500'>Data Dashboard</NavLink>
+    {isAuthenticated && <nav className='h-12 flex bg-indigo-600 shadow-lg text-gray-300 text-sm sm:text-base overflow-x-scroll'>
+      {canView && <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-indigo-500'>Data Dashboard</NavLink>}
       {/* <NavLink to='/email-editor' className={linkClasses} activeClassName='text-white bg-indigo-500'>Email Editor</NavLink> */}
-      <NavLink to='/website-editor' className={linkClasses} activeClassName='text-white bg-indigo-500'>Website Editor</NavLink>
-      {isAuthenticated && <button className={`ml-auto ${linkClasses}`} onClick={e => logout({ returnTo: window.location.origin })}>Logout</button>}
-    </nav>
+      {/* {isAdmin(user) && <NavLink to='/website-editor' className={linkClasses} activeClassName='text-white bg-indigo-500'>Website Editor</NavLink>} */}
+      {isAdmin(user) && <NavLink to='/access-control' className={linkClasses} activeClassName='text-white bg-indigo-500'>User Management</NavLink>}
+      <button className={`ml-auto ${linkClasses}`} onClick={e => logout({ returnTo: window.location.origin })}>Logout</button>
+    </nav>}
     <Switch>
-      <PrivateRoute path='/dashboard' component={withRouter(Dashboard)} />
-      <PrivateRoute path='/website-editor' component={withRouter(WebsiteEditor)} />
+      <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/dashboard' component={withRouter(Dashboard)} />
+      <PrivateRoute allowedRoles={['admin']} path='/website-editor' component={withRouter(WebsiteEditor)} />
+      <PrivateRoute allowedRoles={['admin']} path='/access-control' component={withRouter(AccessControl)} />
       {/* <PrivateRoute path='/email-editor' component={withRouter(EmailEditor)} /> */}
       <Route exact path='/'>
-        <PleaseLogin isAuthenticated={isAuthenticated} loading={loading} />
+        {user && !canView
+          ? <Unauthorized />
+          : <PleaseLogin isAuthenticated={isAuthenticated} loading={loading} />}
       </Route>
       <Redirect to='/dashboard' />
     </Switch>

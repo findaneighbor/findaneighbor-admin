@@ -104,30 +104,6 @@ export const NEED_TYPES = gql`
   }
 `
 
-export const SET_REQUEST_GREETED = gql`
-  mutation setRequestGreeted($greeted: Boolean!, $id: Int!) {
-    update_request_for_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
-      affected_rows
-    }
-  }
-`
-
-export const SET_OFFER_GREETED = gql`
-  mutation setOfferGreeted($greeted: Boolean!, $id: Int!) {
-    update_offer_to_help(where: { id: { _eq: $id } }, _set: { greeted: $greeted }) {
-      affected_rows
-    }
-  }
-`
-
-export const SET_OFFER_ACTIVE = gql`
-  mutation setOfferActive($active: Boolean!, $id: Int!) {
-    update_offer_to_help(where: { id: { _eq: $id } }, _set: { active: $active }) {
-      affected_rows
-    }
-  }
-`
-
 export const EMAIL_TEMPLATES = gql`
   subscription watchEmailTemplates {
     email_template (order_by: { updated_at: desc }) {
@@ -141,18 +117,14 @@ export const EMAIL_TEMPLATES = gql`
   }
 `
 
-export const INSERT_EMAIL_TEMPLATE = gql`
-  mutation insertEmailTemplate ($name: String!, $subject: String!, $message: String!) {
-    insert_email_template(objects: { name: $name, subject: $subject, message: $message }) {
-      affected_rows
-    }
-  }
-`
-
-export const UPDATE_EMAIL_TEMPLATE = gql`
-  mutation updateEmailTemplate ($id: Int!, $name: String!, $subject: String!, $message: String!) {
-    update_email_template(where: { id: { _eq: $id } }, _set: { name: $name, subject: $subject, message: $message }) {
-      affected_rows
+export const USER_SUBSCRIPTION = gql`
+  subscription userSub {
+    user (where: { email: { _is_null: false } }, order_by: { created_at: desc_nulls_last }) {
+      email
+      id
+      role
+      name
+      picture
     }
   }
 `

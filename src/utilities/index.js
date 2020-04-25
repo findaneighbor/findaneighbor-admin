@@ -1,4 +1,6 @@
-import { faQuestion, faCheck, faHandsHelping, faSync, faPeopleArrows, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { faQuestion, faCheck, faHandsHelping, faSync, faPeopleArrows, faTimes } from '@fortawesome/free-solid-svg-icons'
+import auth0_shield from '../assets/auth0_shield.png'
+import google_g from '../assets/google_g.png'
 
 export const googleMapsURL = (address = '', zip = '') => `https://google.com/maps/place/${address.split(' ').join('+')},+${zip}`
 
@@ -56,4 +58,24 @@ export const getRequestStatusDecor = status => {
         textColor: 'text-gray-700'
       }
   }
+}
+
+export const getRole = user => user?.['https://hasura.io/jwt/claims']?.['x-hasura-default-role'] ?? 'user'
+
+export const isAuthorized = user => !!{ admin: 1, editor: 1, viewer: 1 }[getRole(user)]
+
+export const isAdmin = user => getRole(user) === 'admin'
+
+export const functionsEndpoint = process.env.NODE_ENV === 'production' ? 'https://functions.findaneighbor.org' : 'http://localhost:3000'
+
+export const getAuthLogo = userId => {
+  if (userId.startsWith('google')) {
+    return google_g
+  }
+
+  if (userId.startsWith('auth0')) {
+    return auth0_shield
+  }
+
+  return ''
 }
