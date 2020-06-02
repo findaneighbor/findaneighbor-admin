@@ -100,6 +100,8 @@ export const NEED_TYPES = gql`
     need_type(order_by: {order: asc, id: desc}) {
       id
       label
+      hidden
+      order
     }
   }
 `
@@ -125,6 +127,38 @@ export const USER_SUBSCRIPTION = gql`
       role
       name
       picture
+    }
+  }
+`
+
+export const PARTNERS_SUBSCRIPTION = gql`
+  subscription Partners {
+    partner (order_by: { order: desc }) {
+      id
+      name
+      website
+      mission_statement
+      address
+      city
+      state
+      zip
+      hours
+      contact_name
+      contact_email
+      contact_phone
+      order
+      hidden
+      partner_needs (order_by: { order: desc }) {
+        id
+        name
+        description
+        order
+        need_type_id
+        need_type {
+          id
+          label
+        }
+      }
     }
   }
 `

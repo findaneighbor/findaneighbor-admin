@@ -79,3 +79,11 @@ export const getAuthLogo = userId => {
 
   return ''
 }
+
+export const externalHref = url => {
+  if (url?.match(/^http:\/\/|^https:\/\//)) {
+    return url
+  }
+
+  return `https://${url}`
+}
