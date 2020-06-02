@@ -1,6 +1,6 @@
 export * from './App'
 export * from './Dashboard'
-export * from './WebsiteEditor'
+export * from './Partners'
 export * from './Controls'
 export * from './EmailEditor'
 export * from './AccessControl'

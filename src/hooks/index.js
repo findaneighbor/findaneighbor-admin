@@ -1,3 +1,5 @@
 export * from './useApolloClient'
 export * from './useAuth0'
 export * from './useLogError'
+export * from './useLocalStorage'
+export * from './useInterval'
