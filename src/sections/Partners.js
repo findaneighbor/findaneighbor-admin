@@ -14,6 +14,7 @@ export const Partners = ({ className = '', style = {} }) => {
 
     return role === 'editor' || role === 'admin'
   })
+
   const { data: { partner: partners = [] } = {}, error } = useSubscription(PARTNERS_SUBSCRIPTION)
   const [show, setShow] = useState(false)
   const [createPartner, { error: createError }] = useMutation(CREATE_PARTNER)
@@ -33,6 +34,8 @@ export const Partners = ({ className = '', style = {} }) => {
       }
 
       setShow(false)
+
+      return true
     }} />}
     <ul className='mx-auto max-w-5xl p-2 space-y-4'>
       {partners.map(partner => <li key={partner.id}>
