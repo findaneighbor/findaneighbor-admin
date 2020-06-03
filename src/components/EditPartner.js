@@ -68,6 +68,22 @@ export const EditPartner = ({
     setShowForm(show)
   }, [show])
 
+  const resetForm = () => {
+    setName('')
+    setMissionStatement('')
+    setWebsite('')
+    setAddress('')
+    setCity('')
+    setState('')
+    setZip('')
+    setHours('')
+    setContactName('')
+    setContactEmail('')
+    setContactPhone('')
+    setHidden(false)
+    setNeeds([])
+  }
+
   return <div className={`p-2 rounded ${className} ${showForm ? 'shadow-md my-4' : ''}`}>
     <form className='flex flex-wrap mt-4'>
       {showForm && <>
@@ -110,11 +126,11 @@ export const EditPartner = ({
         type='submit'
         disabled={!dirty}
         className='btn btn-secondary mt-2'
-        onClick={e => {
+        onClick={async e => {
           e.preventDefault()
           e.stopPropagation()
 
-          onSave({
+          const success = await onSave({
             id: partner.id,
             name,
             mission_statement,
@@ -130,6 +146,10 @@ export const EditPartner = ({
             contact_phone,
             needs: needs.map(({ id, ...n }) => ({ id: id < 0 ? undefined : id, ...n }))
           })
+
+          if (success) {
+            resetForm()
+          }
         }}
       >
         Save
