@@ -169,3 +169,21 @@ export const DELETE_PARTNER_NEED = gql`
     }
   }
 `
+
+export const CREATE_NOTIFICATION_SETTING = gql`
+  mutation createNotificationSetting ($userId: String!) {
+    insert_notification_setting_one(object: { user_id: $userId }) {
+      user_id
+      created_at
+    }
+  }
+`
+
+export const UPDATE_NOTIFICATION_SETTING = gql`
+  mutation updateNotificationSetting ($userId: String!, $requestAdded: Boolean, $offerAdded: Boolean) {
+    update_notification_setting_by_pk(pk_columns: { user_id: $userId }, _set: { request_added: $requestAdded,
+      offer_added: $offerAdded }) {
+      user_id
+    }
+  }
+`
