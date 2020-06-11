@@ -162,3 +162,16 @@ export const PARTNERS_SUBSCRIPTION = gql`
     }
   }
 `
+
+export const NOTIFICATION_SETTINGS_SUB = gql`
+  subscription NotificationSetting ($userId: String!) {
+    notification_setting_by_pk(user_id: $userId) {
+      user_id
+      request_added
+      offer_added
+      match_made
+      prayer_reminder
+      help_completed
+    }
+  }
+`
