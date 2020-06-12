@@ -1,12 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEnvelope, faMobileAlt, faMinus, faBan, faCommentSlash, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
 import { StatusDropdown, MarkGreeted, ExpandButton } from '.'
+import { useMutation } from '@apollo/react-hooks'
+import { DELETE_REQUEST } from '../graphql'
+import { useLogError } from '../hooks'
 
 export const RequestListCard = ({ className = '', style = {}, id, created_at, name, address, zip, email, phone, text_permission, affiliations, greeted, request_needs = [], showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
   const [markingGreeted, setMarkingGreeted] = useState(false)
+
+  const [deleteRequest, { error }] = useMutation(DELETE_REQUEST)
+
+  useLogError(error)
 
   useEffect(() => {
     setExpanded(showInfo)
@@ -63,6 +70,14 @@ export const RequestListCard = ({ className = '', style = {}, id, created_at, na
               <p className='text-gray-600'>{description}</p>
             </div>
           })}
+        </div>
+        <div className='flex-center'>
+          <button type='button' className='btn py-1 px-2 bg-white hover:bg-gray-100 text-red-300 hover:text-red-500' onClick={e => {
+            if (confirm('This Request For Help will be permanently deleted. Proceed?')) deleteRequest({ variables: { id } })
+          }}>
+            Delete
+            <FontAwesomeIcon icon={faTrash} className='ml-2' />
+          </button>
         </div>
       </>
       : <div className='flex flex-wrap mt-4'>
