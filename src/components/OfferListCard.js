@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping, faCommentSlash } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEnvelope, faMinus, faBan, faMobileAlt, faHandHoldingHeart, faHandsHelping, faCommentSlash, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { googleMapsURL, getRequestStatusDecor } from '../utilities'
 import { MarkGreeted, ActiveStatus, ExpandButton } from '.'
+import { useMutation } from '@apollo/react-hooks'
+import { DELETE_OFFER } from '../graphql'
+import { useLogError } from '../hooks'
 
 export const OfferListCard = ({
   className = '',
@@ -26,6 +29,10 @@ export const OfferListCard = ({
 }) => {
   const [expanded, setExpanded] = useState(showInfo)
   const [markingGreeted, setMarkingGreeted] = useState(false)
+
+  const [deleteOffer, { error }] = useMutation(DELETE_OFFER)
+
+  useLogError(error)
 
   useEffect(() => {
     setExpanded(showInfo)
@@ -83,6 +90,14 @@ export const OfferListCard = ({
               <p className='text-gray-600'>{description}</p>
             </div>
           })}
+        </div>
+        <div className='flex-center'>
+          <button type='button' className='btn py-1 px-2 bg-white hover:bg-gray-100 text-red-300 hover:text-red-500' onClick={e => {
+            if (confirm('This Offer To Help will be permanently deleted. Proceed?')) deleteOffer({ variables: { id } })
+          }}>
+            Delete
+            <FontAwesomeIcon icon={faTrash} className='ml-2' />
+          </button>
         </div>
       </>
       : <div className='flex flex-wrap mt-4'>

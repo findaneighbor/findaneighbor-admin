@@ -48,6 +48,22 @@ export const SET_OFFER_ACTIVE = gql`
   }
 `
 
+export const DELETE_REQUEST = gql`
+  mutation deleteRequestForHelp ($id: Int!) {
+    delete_request_for_help_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
+export const DELETE_OFFER = gql`
+  mutation deleteOfferToHelp ($id: Int!) {
+    delete_offer_to_help_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
 export const UPDATE_USER_ROLE = gql`
   mutation updateRole ($id: String!, $role: String) {
     update_user_by_pk (pk_columns: { id: $id }, _set: { role: $role }) {
