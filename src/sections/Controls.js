@@ -5,27 +5,28 @@ import { useQuery } from '@apollo/react-hooks'
 import { NEED_TYPES } from '../graphql'
 import { TextInput, ExpandButton } from '../components'
 import { statuses } from '../utilities'
+import { useRememberedState } from '../hooks'
 
 export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariables, requestVariables, setRequestVariables }) => {
-  const [showControls, setShowControls] = useState(true)
-  const [showRequestSorting, setShowRequestSorting] = useState(true)
-  const [showOfferSorting, setShowOfferSorting] = useState(true)
-  const [showRequestFiltering, setShowRequestFiltering] = useState(true)
-  const [showOfferFiltering, setShowOfferFiltering] = useState(true)
+  const [showControls, setShowControls] = useRememberedState('showControls', true)
+  const [showRequestSorting, setShowRequestSorting] = useRememberedState('showRequestSorting', true)
+  const [showOfferSorting, setShowOfferSorting] = useRememberedState('showOfferSorting', true)
+  const [showRequestFiltering, setShowRequestFiltering] = useRememberedState('showRequestFiltering', true)
+  const [showOfferFiltering, setShowOfferFiltering] = useRememberedState('showOfferFiltering', true)
 
-  const [enableRequestZipSort, setEnableRequestZipSort] = useState(requestVariables.order.zip !== null)
-  const [requestZipSort, setRequestZipSort] = useState(requestVariables.order.zip)
-  const [enableOfferZipSort, setEnableOfferZipSort] = useState(offerVariables.order.zip !== null)
-  const [offerZipSort, setOfferZipSort] = useState(offerVariables.order.zip)
+  const [enableRequestZipSort, setEnableRequestZipSort] = useRememberedState('enableRequestZipSort', requestVariables.order.zip !== null)
+  const [requestZipSort, setRequestZipSort] = useRememberedState('requestZipSort', requestVariables.order.zip)
+  const [enableOfferZipSort, setEnableOfferZipSort] = useRememberedState('enableOfferZipSort', offerVariables.order.zip !== null)
+  const [offerZipSort, setOfferZipSort] = useRememberedState('offerZipSort', offerVariables.order.zip)
 
-  const [requestNeedList, setRequestNeedList] = useState(
+  const [requestNeedList, setRequestNeedList] = useRememberedState('requestNeedList', 
     (requestVariables.needList || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
-  const [offerNeedList, setOfferNeedList] = useState(
+  const [offerNeedList, setOfferNeedList] = useRememberedState('offerNeedList', 
     (offerVariables.needList || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
   
-  const [requestNeedStatuses, setRequestNeedStatuses] = useState(
+  const [requestNeedStatuses, setRequestNeedStatuses] = useRememberedState('requestNeedStatuses', 
     (requestVariables.needStatuses || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
 

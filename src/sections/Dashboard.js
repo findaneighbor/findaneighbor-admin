@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useSubscription } from '@apollo/react-hooks'
 import { REQUESTS_FOR_HELP_SUB, OFFERS_TO_HELP_SUB } from '../graphql'
-import { useLogError } from '../hooks'
+import { useLogError, useRememberedState } from '../hooks'
 import { RequestListCard, OfferListCard } from '../components'
 import { Controls } from '.'
 import { statuses } from '../utilities'
 
 export const Dashboard = ({ className = '', style = {} }) => {
-  const [offerVariables, setOfferVariables] = useState({
+  const [offerVariables, setOfferVariables] = useRememberedState('offerVariables', {
     name: null,
     zip: null,
     email: null,
@@ -19,7 +19,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
       zip: null
     }
   })
-  const [requestVariables, setRequestVariables] = useState({
+  const [requestVariables, setRequestVariables] = useRememberedState('requestVariables', {
     name: null,
     zip: null,
     email: null,
@@ -50,7 +50,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
   const [offers, setOffers] = useState(offer_to_help || [])
   const [requests, setRequests] = useState(request_for_help || [])
 
-  const [showInfo, setShowInfo] = useState(false)
+  const [showInfo, setShowInfo] = useRememberedState('showInfo', false)
 
   useLogError(reqErr)
   useLogError(offErr)
