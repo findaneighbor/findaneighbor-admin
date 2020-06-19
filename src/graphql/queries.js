@@ -46,6 +46,54 @@ export const REQUESTS_FOR_HELP_SUB = gql`
   }
 `
 
+export const REQUEST_NEEDS_SUB = gql`
+  subscription requestNeeds(
+    $name: String,
+    $zip: String,
+    $email: String,
+    $phone: String,
+    $needList: [Int!]
+  ) {
+    request_need(
+      where: {
+        _and: [
+          {
+            request_for_help: {
+              _or: [
+                { name: { _ilike: $name } },
+                { zip: { _ilike: $zip } },
+                { email: { _ilike: $email } },
+                { phone: { _ilike: $phone } }
+              ]
+            }
+          },
+          { need_type_id: { _in: $needList } }
+        ]
+      }
+    ) {
+      id
+      created_at
+      description
+      status
+      need_type {
+        label
+        id
+      }
+      request_for_help {
+        id
+        address
+        email
+        name
+        phone
+        zip
+        text_permission
+        affiliations
+        greeted
+      }
+    }
+  }
+`
+
 export const OFFERS_TO_HELP_SUB = gql`
   subscription offersToHelp(
     $name: String,

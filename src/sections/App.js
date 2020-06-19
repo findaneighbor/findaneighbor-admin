@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth0 } from '../hooks'
 import { NavLink, BrowserRouter as Router, Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Dashboard, Partners, EmailEditor, AccessControl, Account } from '.'
+import { Dashboard, Partners, EmailEditor, AccessControl, Account, KanBan } from '.'
 import { PrivateRoute, PleaseLogin, Unauthorized, AccountMenu } from '../components'
 import { getRole, isAuthorized, isAdmin } from '../utilities'
 
@@ -14,8 +14,11 @@ export const App = props => {
 
   return <div className='h-screen'>
     {isAuthenticated && <nav className='h-12 flex bg-primary-600 shadow-lg text-gray-300 text-sm sm:text-base overflow-x-scroll'>
-      {canView && <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
+      {canView && <NavLink to='/legacy-dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
         Data Dashboard
+      </NavLink>}
+      {canView && <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
+        KanBan Board
       </NavLink>}
       {/* <NavLink to='/email-editor' className={linkClasses} activeClassName='text-white bg-primary-500'>
         Email Editor
@@ -29,7 +32,8 @@ export const App = props => {
       <AccountMenu className={`ml-auto ${linkClasses}`} />
     </nav>}
     <Switch>
-      <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/dashboard' component={withRouter(Dashboard)} />
+      <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/legacy-dashboard' component={withRouter(Dashboard)} />
+      <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/dashboard' component={withRouter(KanBan)} />
       <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/partners' component={withRouter(Partners)} />
       <PrivateRoute allowedRoles={['admin']} path='/access-control' component={withRouter(AccessControl)} />
       <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/account' component={withRouter(Account)} />
