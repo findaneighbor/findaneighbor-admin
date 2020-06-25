@@ -21,7 +21,7 @@ export const NeedCard = ({ className = '', style = {}, id, status, description, 
     setExpanded(showInfo)
   }, [showInfo])
 
-  return <div className={`p-1 md:p-2 rounded-md shadow-md ${className}`} key={id}>
+  return <div className={`p-1 md:p-2 rounded-md shadow-md bg-white ${className}`} key={id}>
     <div className='flex justify-between mb-2'>
       <div>
         <h3 className={`relative inline-block w-full text-xl font-semibold cursor-pointer ${greeted ? 'text-primary-500' : 'text-red-500'}`}>

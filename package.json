@@ -40,9 +40,9 @@
     "auth0-spa-js": "^1.6.5",
     "graphql": "^14.6.0",
     "react": "latest",
-    "react-beautiful-dnd": "^13.0.0",
     "react-dom": "latest",
     "react-router-dom": "^5.1.2",
+    "react-smooth-dnd": "^0.11.1",
     "subscriptions-transport-ws": "^0.9.16"
   },
   "browserslist": [
