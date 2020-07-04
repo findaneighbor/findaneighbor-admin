@@ -52,6 +52,7 @@ export const REQUEST_NEEDS_SUB = gql`
     $zip: String,
     $email: String,
     $phone: String,
+    $address: String,
     $needList: [Int!]
   ) {
     request_need(
@@ -61,6 +62,7 @@ export const REQUEST_NEEDS_SUB = gql`
             request_for_help: {
               _or: [
                 { name: { _ilike: $name } },
+                { address: { _ilike: $address } },
                 { zip: { _ilike: $zip } },
                 { email: { _ilike: $email } },
                 { phone: { _ilike: $phone } }

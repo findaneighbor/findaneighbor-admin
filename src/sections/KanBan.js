@@ -1,17 +1,20 @@
 import React, { useEffect, useState, Fragment } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
-import { Dropdown, RequestListCard, NeedCard } from '../components'
+import { Dropdown, RequestListCard, NeedCard, TextInput } from '../components'
 import { useRememberedState, useLogError } from '../hooks'
 import { REQUEST_NEEDS_SUB, UPDATE_STATUS } from '../graphql'
 import { statuses, getRequestStatusDecor } from '../utilities'
 
 export const KanBan = ({ className = '', style = {} }) => {
+  const [search, setSearch] = useRememberedState('kanbanSearch', '')
+
   const [variables, setVariables] = useRememberedState('requestNeedSubVariables', {
-    name: null,
-    zip: null,
-    email: null,
-    phone: null,
+    name: search ? `%${search}%` : null,
+    zip: search ? `%${search}%` : null,
+    email: search ? `%${search}%` : null,
+    phone: search ? `%${search}%` : null,
+    address: search ? `%${search}%` : null,
     needList: null
   })
 
@@ -88,34 +91,50 @@ export const KanBan = ({ className = '', style = {} }) => {
     }
   }
 
-  return <main className={`max-h-content min-h-content flex overflow-scroll p-1 md:p-4`}>
-    {statuses.map(status => {
-      const { icon, textColor, bgColor } = getRequestStatusDecor(status)
+  useEffect(() => {
+    setVariables({
+      name: search ? `%${search}%` : null,
+      zip: search ? `%${search}%` : null,
+      email: search ? `%${search}%` : null,
+      phone: search ? `%${search}%` : null,
+      address: search ? `%${search}%` : null,
+      needList: null
+    })
+  }, [search])
 
-      return <Container
-        key={status}
-        groupName="status"
-        onDrop={e => onDragEnd(status, e)}
-        getChildPayload={index => requests[status][index]}
-        render={(ref) => {
-          return <div key={status} className='rounded-lg shadow-lg p-1 mr-4 flex flex-col min-w-xs'>
-            <div className='flex justify-between p-1'>
-              <h2 className={`capitalize ${textColor}`}>{status}</h2>
-              <div className='pill py-0'>. . .</div>
+  return <main className={`max-h-content min-h-content flex flex-col`}>
+    <div className='p-1 md:p-4'>
+      <TextInput value={search} onChange={setSearch} placeholder='Search by name, email, phone, address, or zip' />
+    </div>
+    <div className='w-full overflow-scroll flex flex-grow p-1 md:p-4'>
+      {statuses.map(status => {
+        const { icon, textColor, bgColor } = getRequestStatusDecor(status)
+
+        return <Container
+          key={status}
+          groupName="status"
+          onDrop={e => onDragEnd(status, e)}
+          getChildPayload={index => requests[status][index]}
+          render={(ref) => {
+            return <div key={status} className='rounded-lg shadow-lg p-1 mr-4 flex flex-col min-w-xs'>
+              <div className='flex justify-between p-1'>
+                <h2 className={`capitalize ${textColor}`}>{status}</h2>
+                <div className='pill py-0'>. . .</div>
+              </div>
+          
+              <ul ref={ref} className='rounded-md flex-grow overflow-y-scroll'>
+                {requests[status].map((request, i) => (
+                  <Draggable key={request.id}>
+                    <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={request.id}>
+                      <NeedCard {...request} className='h-full' />
+                    </li>
+                  </Draggable>
+                ))}
+              </ul>
             </div>
-        
-            <ul ref={ref} className='rounded-md flex-grow overflow-y-scroll'>
-              {requests[status].map((request, i) => (
-                <Draggable key={request.id}>
-                  <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={request.id}>
-                    <NeedCard {...request} className='h-full' />
-                  </li>
-                </Draggable>
-              ))}
-            </ul>
-          </div>
-        }}
-      />
-    })}
+          }}
+        />
+      })}
+    </div>
   </main>
 }
