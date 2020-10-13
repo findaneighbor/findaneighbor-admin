@@ -6,6 +6,7 @@ import { StatusDropdown, MarkGreeted, ExpandButton } from '.'
 import { useMutation } from '@apollo/react-hooks'
 import { DELETE_REQUEST } from '../graphql'
 import { useLogError } from '../hooks'
+import { MapBoxModal } from './MapBoxModal'
 
 export const NeedCard = ({ className = '', style = {}, id, status, description, created_at, need_type: { label }, request_for_help: { id: reqId, name, address, zip, email, phone, text_permission, affiliations, greeted } = {}, showInfo }) => {
   const [expanded, setExpanded] = useState(showInfo)
@@ -39,6 +40,7 @@ export const NeedCard = ({ className = '', style = {}, id, status, description, 
         <a className='text-secondary-500' href={googleMapsURL(address, zip)} target='_blank' rel='noopener noreferrer'>
           {address} / {zip}
         </a>
+        <button className='btn p-1' onClick={e => window.dispatchEvent(new CustomEvent('open-mapbox', { detail: { address, zip } }))}>MapBox</button>
       </div>
       <ExpandButton expanded={expanded} setExpanded={setExpanded} />
     </div>

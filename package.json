@@ -39,6 +39,7 @@
     "apollo-link-ws": "^1.0.19",
     "auth0-spa-js": "^1.6.5",
     "graphql": "^14.6.0",
+    "mapbox-gl": "^1.11.0",
     "react": "latest",
     "react-dom": "latest",
     "react-router-dom": "^5.1.2",

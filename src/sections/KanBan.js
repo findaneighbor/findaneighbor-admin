@@ -1,8 +1,8 @@
-import React, { useEffect, useState, Fragment } from 'react'
+import React, { useEffect, useState, Fragment, useCallback } from 'react'
 import { Container, Draggable } from 'react-smooth-dnd'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
-import { Dropdown, RequestListCard, NeedCard, TextInput } from '../components'
-import { useRememberedState, useLogError } from '../hooks'
+import { Dropdown, RequestListCard, NeedCard, TextInput, MapBoxModal } from '../components'
+import { useRememberedState, useLogError, useCustomEvent } from '../hooks'
 import { REQUEST_NEEDS_SUB, UPDATE_STATUS } from '../graphql'
 import { statuses, getRequestStatusDecor } from '../utilities'
 
@@ -102,8 +102,15 @@ export const KanBan = ({ className = '', style = {} }) => {
     })
   }, [search])
 
+  const [modalValues, setModalValues] = useState(null)
+
+  const modalOpener = useCallback(event => event?.detail?.address && event.detail.zip && setModalValues(event.detail), [])
+
+  useCustomEvent('open-mapbox', modalOpener)
+
   return <main className={`max-h-content min-h-content flex flex-col`}>
-    <div className='p-1 md:p-4'>
+    {modalValues && <MapBoxModal address={modalValues.address} zip={modalValues.zip} />}
+    <div className='p-1 md:p-4 max-w-md'>
       <TextInput value={search} onChange={setSearch} placeholder='Search by name, email, phone, address, or zip' />
     </div>
     <div className='w-full overflow-scroll flex flex-grow p-1 md:p-4'>

@@ -11,6 +11,10 @@ module.exports = {
           200: '#d7fbf4'
         }
       },
+      height: theme => ({
+        ...theme('spacing'),
+        '2/3vh': '67vh'
+      }),
       minHeight: theme => ({
         ...theme('spacing')
       }),
