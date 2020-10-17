@@ -46,6 +46,56 @@ export const REQUESTS_FOR_HELP_SUB = gql`
   }
 `
 
+export const REQUEST_NEEDS_SUB = gql`
+  subscription requestNeeds(
+    $name: String,
+    $zip: String,
+    $email: String,
+    $phone: String,
+    $address: String,
+    $needList: [Int!]
+  ) {
+    request_need(
+      where: {
+        _and: [
+          {
+            request_for_help: {
+              _or: [
+                { name: { _ilike: $name } },
+                { address: { _ilike: $address } },
+                { zip: { _ilike: $zip } },
+                { email: { _ilike: $email } },
+                { phone: { _ilike: $phone } }
+              ]
+            }
+          },
+          { need_type_id: { _in: $needList } }
+        ]
+      }
+    ) {
+      id
+      created_at
+      description
+      status
+      need_type {
+        label
+        id
+      }
+      request_for_help {
+        id
+        address
+        email
+        name
+        phone
+        zip
+        text_permission
+        affiliations
+        greeted
+      }
+    }
+  }
+`
+
 export const OFFERS_TO_HELP_SUB = gql`
   subscription offersToHelp(
     $name: String,
@@ -97,11 +147,24 @@ export const OFFERS_TO_HELP_SUB = gql`
 
 export const NEED_TYPES = gql`
   query NeedTypes {
-    need_type(order_by: {order: asc, id: desc}) {
+    need_type(order_by: {order: asc}) {
       id
       label
       hidden
       order
+    }
+  }
+`
+
+export const NEED_TYPES_SUB = gql`
+  subscription NeedTypesSub {
+    need_type(order_by: {order: asc}) {
+      id
+      label
+      hidden
+      order
+      request_description
+      offer_description
     }
   }
 `
@@ -175,3 +238,17 @@ export const NOTIFICATION_SETTINGS_SUB = gql`
     }
   }
 `
+
+export const SUCCESS_STORIES_SUB = gql`
+  subscription successStories {
+    success_story (order_by: { order: asc }) {
+      id
+      name
+      anonymized_name
+      testimonial
+      location
+      order
+    }
+  }
+`
+
