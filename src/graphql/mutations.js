@@ -203,3 +203,128 @@ export const UPDATE_NOTIFICATION_SETTING = gql`
     }
   }
 `
+
+export const DELETE_SUCCESS_STORY = gql`
+  mutation DeleteSuccessStory ($id: Int!) {
+    delete_success_story_by_pk(id: $id) {
+      id
+    }
+  }
+`
+
+export const CREATE_SUCCESS_STORY = gql`
+  mutation CreateSuccessStory(
+    $testimonial: String!,
+    $anonymized_name: String!,
+    $name: String!,
+    $location: String
+  ) {
+    insert_success_story(
+      objects: {
+        testimonial: $testimonial,
+        name: $name,
+        location: $location,
+        anonymized_name: $anonymized_name
+      }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`
+
+export const UDPATE_SUCCESS_STORY = gql`
+  mutation UpdateSuccessStory(
+    $id: Int!,
+    $testimonial: String,
+    $anonymized_name: String,
+    $name: String,
+    $location: String
+  ) {
+    update_success_story_by_pk(
+      pk_columns: {
+        id: $id
+      },
+      _set: {
+        testimonial: $testimonial,
+        name: $name,
+        location: $location,
+        anonymized_name: $anonymized_name
+      }
+    ) {
+      id
+    }
+  }
+`
+
+export const REORDER_SUCCESS_STORY = gql`
+  mutation reorderSuccessStory(
+    $id: Int!,
+    $order: float8
+  ) {
+    update_success_story_by_pk(pk_columns: { id: $id }, _set: { order: $order }) {
+      id
+    }
+  }
+`
+
+export const CREATE_NEED_TYPE = gql`
+  mutation createNeedType ($label: String!, $offer_description: String!, $request_description: String!, $hidden: Boolean) {
+    insert_need_type(
+      objects: {
+        label: $label,
+        offer_description: $offer_description,
+        request_description: $request_description,
+        hidden: $hidden
+      }
+    ) {
+      returning {
+        id
+      }
+    }
+  }
+`
+
+export const UPDATE_NEED_TYPE = gql`
+  mutation updateNeedType (
+    $id: Int!,
+    $label: String,
+    $offer_description: String,
+    $request_description: String,
+    $hidden: Boolean
+  ) {
+    update_need_type_by_pk(
+      pk_columns: {
+        id: $id
+      },
+      _set: {
+        hidden: $hidden
+        label: $label,
+        offer_description: $offer_description,
+        request_description: $request_description
+      }
+    ) {
+      id
+    }
+  }
+`
+
+export const REORDER_NEED_TYPE = gql`
+  mutation reorderNeedType (
+    $id: Int!,
+    $order: float8
+  ) {
+    update_need_type_by_pk(pk_columns: { id: $id }, _set: { order: $order }) {
+      id
+    }
+  }
+`
+
+export const DELETE_NEED_TYPE = gql`
+  mutation deleteNeedType ($id: Int!) {
+    delete_need_type_by_pk(id: $id) {
+      id
+    }
+  }
+`

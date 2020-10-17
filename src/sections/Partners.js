@@ -1,11 +1,13 @@
 import React, { useState, useMemo } from 'react'
 import { useSubscription, useMutation } from '@apollo/react-hooks'
 import { PARTNERS_SUBSCRIPTION, CREATE_PARTNER } from '../graphql'
-import { useLogError, useAuth0 } from '../hooks'
+import { useLogError, useAuth0, useMedia, useRememberedState } from '../hooks'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
-import { TextInput, EditPartner, DisplayPartner } from '../components'
+import { TextInput, EditPartner, DisplayPartner, Dropdown } from '../components'
 import { getRole } from '../utilities'
+
+const subPageOptions = [{ value: 'partners', label: 'Partners' }, { value: 'stories', label: 'Success Stories' }]
 
 export const Partners = ({ className = '', style = {} }) => {
   const { user } = useAuth0()
@@ -22,8 +24,7 @@ export const Partners = ({ className = '', style = {} }) => {
   useLogError(error)
   useLogError(createError)
 
-  return <main className='h-content overflow-y-scroll p-4'>
-    <h2 className='text-center text-2xl text-primary-500'>Partners</h2>
+  return <>
     {canEdit && <EditPartner show={show} className='mx-auto max-w-5xl' onSave={async ({ id, ...p }) => {
       const errorMaybe = await createPartner({ variables: p })
 
@@ -43,5 +44,5 @@ export const Partners = ({ className = '', style = {} }) => {
         <DisplayPartner partner={partner} canEdit={canEdit} />
       </li>)}
     </ul>
-  </main>
+  </>
 }
