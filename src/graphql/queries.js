@@ -147,11 +147,24 @@ export const OFFERS_TO_HELP_SUB = gql`
 
 export const NEED_TYPES = gql`
   query NeedTypes {
-    need_type(order_by: {order: asc, id: desc}) {
+    need_type(order_by: {order: asc}) {
       id
       label
       hidden
       order
+    }
+  }
+`
+
+export const NEED_TYPES_SUB = gql`
+  subscription NeedTypesSub {
+    need_type(order_by: {order: asc}) {
+      id
+      label
+      hidden
+      order
+      request_description
+      offer_description
     }
   }
 `
@@ -225,3 +238,17 @@ export const NOTIFICATION_SETTINGS_SUB = gql`
     }
   }
 `
+
+export const SUCCESS_STORIES_SUB = gql`
+  subscription successStories {
+    success_story (order_by: { order: asc }) {
+      id
+      name
+      anonymized_name
+      testimonial
+      location
+      order
+    }
+  }
+`
+

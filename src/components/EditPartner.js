@@ -36,19 +36,19 @@ export const EditPartner = ({
 
   useEffect(() => {
     setDirty(
-      (name && name !== partner.name) ||
-      mission_statement !== partner.mission_statement ||
-      website !== partner.website ||
-      address !== partner.address ||
-      city !== partner.city ||
-      state !== partner.state ||
-      zip !== partner.zip ||
-      hours !== partner.hours ||
-      hidden !== partner.hidden ||
-      contact_name !== partner.contact_name ||
-      contact_email !== partner.contact_email ||
-      contact_phone !== partner.contact_phone ||
-      needs.length !== partner.partner_needs?.length ||
+      (name && name !== (partner.name || '')) ||
+      mission_statement !== (partner.mission_statement || '') ||
+      website !== (partner.website || '') ||
+      address !== (partner.address || '') ||
+      city !== (partner.city || '') ||
+      state !== (partner.state || '') ||
+      zip !== (partner.zip || '') ||
+      hours !== (partner.hours || '') ||
+      hidden !== (partner.hidden || false) ||
+      contact_name !== (partner.contact_name || '') ||
+      contact_email !== (partner.contact_email || '') ||
+      contact_phone !== (partner.contact_phone || '') ||
+      needs.length !== (partner.partner_needs?.length || 0) ||
       needs.some(({ need_type_id, name, description, id }, i) => (
         partner.partner_needs?.[i]?.need_type_id !== need_type_id ||
         partner.partner_needs?.[i]?.name !== name ||
@@ -120,7 +120,7 @@ export const EditPartner = ({
         setShowForm(s => !s)
       }}>
         {!showForm && <FontAwesomeIcon icon={faPlus} className='mr-2' />}
-        {showForm ? 'Cancel' : 'Add Partner'}
+        {showForm ? dirty ? 'Cancel' : 'Close' : 'Add Partner'}
       </button>
       {showForm && <button
         type='submit'
