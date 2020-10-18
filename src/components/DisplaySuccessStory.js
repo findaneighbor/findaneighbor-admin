@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { Fragment, useState } from 'react'
 import { EditSuccessStory } from './EditSuccessStory'
 import { useMutation } from '@apollo/react-hooks'
 import { useLogError } from '../hooks'
@@ -41,7 +41,10 @@ export const DisplaySuccessStory = ({ className = '', style = {}, story = {}, ca
           Edit
         </button>}
       <blockquote style={style} className={`before-quote text-lg font-serif ${className}`}>
-        <p className='inline italic font-serif'>{story.testimonial}</p>
+        {story.testimonial.split('\n').map((t, i) => <Fragment key={i}>
+          {i !== 0 && <br />}
+          <p className='inline italic font-serif'>{t}</p>
+        </Fragment>)}
         <p className='text-right text-2xl text-secondary-500'>
           &#8212;{' '}{story.anonymized_name}{story.location && `, ${story.location}`}
         </p>
