@@ -33,7 +33,7 @@ export const StatusDropdown = ({ className = '', style = {}, status, id }) => {
 
           return <li
             key={s}
-            className={`p-2 flex justify-between items-center flex-no-wrap capitalize hover:bg-gray-200 cursor-pointer ${textColor}`}
+            className={`p-2 flex justify-between items-center flex-nowrap capitalize hover:bg-gray-200 cursor-pointer ${textColor}`}
             onClick={e => {
               updateStatus({ variables: { status: s, id }})
               setShow(false)

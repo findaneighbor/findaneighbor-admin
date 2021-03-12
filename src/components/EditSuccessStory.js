@@ -70,7 +70,7 @@ export const EditSuccessStory = ({
         <TextInput innerRef={nameRef} value={name} onChange={setName} label='Name' className='w-full' required />
         <div className='flex w-full'>
           <TextInput value={anonymized_name} onChange={anonymousNameHandler} label='Anonymized Name' className='w-full' />
-          {!autoAnonymize && <button className='btn bg-secondary-300 text-white p-1 self-end whitespace-no-wrap ml-1' onClick={e => setAutoAnonymize(true)}>Auto-Anonymize</button>}
+          {!autoAnonymize && <button className='btn bg-secondary-300 text-white p-1 self-end whitespace-nowrap ml-1' onClick={e => setAutoAnonymize(true)}>Auto-Anonymize</button>}
         </div>
         <TextInput value={location} onChange={setLocation} label='Location (optional)' className='w-full' />
         <TextArea rows='10' value={testimonial} onChange={setTestimonial} label='Testimonial'  className='w-full' />

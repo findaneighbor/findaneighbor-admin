@@ -6,6 +6,14 @@
   font-family: 'Inter', sans-serif;
 }
 
+th, td {
+  @apply p-2;
+}
+
+th {
+  @apply font-normal;
+}
+
 blockquote {
   quotes: "\201C""\201D";
 }
@@ -31,7 +39,7 @@ blockquote.after-quote:after {
 @tailwind components;
 
 .main-grid {
-  @apply grid row-gap-2;
+  @apply grid gap-y-2;
   grid-template:
     'controls' auto
     'req-head' 3rem
@@ -43,7 +51,7 @@ blockquote.after-quote:after {
 
 @screen sm {
   .main-grid {
-    @apply col-gap-4 row-gap-0;
+    @apply gap-x-4 gap-y-0;
     grid-template:
       'controls controls'  auto
       'req-head off-head' 3rem
@@ -114,7 +122,7 @@ blockquote.after-quote:after {
 }
 
 .btn:focus {
-  @apply outline-none shadow-outline;
+  @apply outline-none ring;
 }
 
 .btn:disabled {
@@ -229,7 +237,7 @@ blockquote.after-quote:after {
 }
 
 .text-input:focus {
-  @apply outline-none shadow-outline border-blue-300;
+  @apply outline-none ring border-blue-300;
 }
 
 .text-input:invalid:not([value=""]) {
@@ -241,7 +249,25 @@ blockquote.after-quote:after {
 }
 
 .form-description:focus {
-  @apply outline-none shadow-outline border-blue-300;
+  @apply outline-none ring border-blue-300;
+}
+
+.react-select__control,
+.react-select__control--is-focused {
+  @apply border border-gray-300 rounded-md !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.react-select__control--is-focused {
+  @apply ring !important;
+}
+
+.percentage {
+  @apply flex-center w-12 h-12 stroke-current transform -rotate-90 transition-all duration-1000 ease-in-out;
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
 }
 
 @tailwind utilities;

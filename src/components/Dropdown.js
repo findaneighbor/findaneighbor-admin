@@ -14,7 +14,7 @@ export const Dropdown = ({ tabIndex, className = '', style = {}, label, value, d
         type='button'
         disabled={disabled}
         tabIndex={tabIndex}
-        className={`focus:outline-none focus:shadow-outline py-1 px-2 rounded-md shadow border border-secondary-300 ${disabled ? 'cursor-not-allowed bg-gray-100 text-gray-500 hover:shadow' : 'hover:shadow-md bg-white'}`}
+        className={`focus:outline-none focus:ring py-1 px-2 rounded-md shadow border border-secondary-300 ${disabled ? 'cursor-not-allowed bg-gray-100 text-gray-500 hover:shadow' : 'hover:shadow-md bg-white'}`}
         onClick={e => {
           e.stopPropagation()
           setShow(s => !s)
@@ -37,7 +37,7 @@ export const Dropdown = ({ tabIndex, className = '', style = {}, label, value, d
           type='button'
           ref={placeholderRef}
           tabIndex={tabIndex}
-          className={`p-2 flex justify-between items-center flex-no-wrap whitespace-no-wrap capitalize hover:bg-gray-200 focus:bg-gray-200 focus:outline-none cursor-pointer`}
+          className={`p-2 flex justify-between items-center flex-nowrap whitespace-nowrap capitalize hover:bg-gray-200 focus:bg-gray-200 focus:outline-none cursor-pointer`}
           onClick={e => {
             e.preventDefault()
 
@@ -54,7 +54,7 @@ export const Dropdown = ({ tabIndex, className = '', style = {}, label, value, d
             ref={!placeholder && i === 0 ? placeholderRef : null}
             tabIndex={tabIndex}
             key={option.id || option[valueKey] || option[labelKey] || option}
-            className={`p-2 flex justify-between items-center flex-no-wrap whitespace-no-wrap capitalize hover:bg-gray-200 focus:bg-gray-200 focus:outline-none cursor-pointer`}
+            className={`p-2 flex justify-between items-center flex-nowrap whitespace-nowrap capitalize hover:bg-gray-200 focus:bg-gray-200 focus:outline-none cursor-pointer`}
             onClick={e => {
               e.preventDefault()
 

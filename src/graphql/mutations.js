@@ -328,3 +328,37 @@ export const DELETE_NEED_TYPE = gql`
     }
   }
 `
+
+export const CREATE_MATCH = gql`
+  mutation CreateMatch (
+    $offerId: Int!,
+    $requestId: Int!,
+    $requesterAccepted: Boolean = false,
+    $offererAccepted: Boolean = false
+  ) {
+    insert_match_one(object: {
+      offer_need_id: $offerId,
+      request_need_id: $requestId,
+      requester_accepted: $requesterAccepted,
+      offerer_accepted: $offererAccepted
+    }) {
+      id
+      # offer_need {
+      #   id
+      #   offer_to_help {
+      #     id
+      #     name
+      #   }
+      # }
+      # request_need {
+      #   id
+      #   status
+      #   description
+      #   request_for_help {
+      #     name
+      #     id
+      #   }
+      # }
+    }
+  }
+`
