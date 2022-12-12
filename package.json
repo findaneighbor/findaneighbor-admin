@@ -27,6 +27,7 @@
   "devDependencies": {
     "autoprefixer": "^10.2.5",
     "parcel": "^2.8.1",
+    "process": "^0.11.10",
     "tailwindcss": "^2.0.4"
   },
   "dependencies": {
@@ -38,8 +39,8 @@
     "apollo-link-ws": "^1.0.20",
     "auth0-spa-js": "^1.6.5",
     "graphql": "^14.7.0",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^17",
+    "react-dom": "^17",
     "react-router-dom": "^5.2.0",
     "react-select": "^3.1.1",
     "react-smooth-dnd": "^0.11.1",
