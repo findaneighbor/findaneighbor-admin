@@ -63,7 +63,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
       Requests For Help
       <span className='ml-2 text-xl'>({requests.length})</span>
     </h2>
-    <ul className='requests flex flex-no-wrap items-stretch h-auto sm:block sm:h-full overflow-scroll'>
+    <ul className='requests flex flex-nowrap items-stretch h-auto sm:block sm:h-full overflow-scroll'>
       {requests.map(request => (
         <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={request.id}>
           <RequestListCard {...request} showInfo={showInfo} className='h-full' />
@@ -74,7 +74,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
       Offers To Help
       <span className='ml-2 text-xl'>({offers.length})</span>
     </h2>
-    <ul className='offers flex flex-no-wrap items-stretch h-auto sm:block h-full overflow-scroll'>
+    <ul className='offers flex flex-nowrap items-stretch h-auto sm:block h-full overflow-scroll'>
       {offers.map(offer => (
         <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={offer.id}>
           <OfferListCard {...offer} showInfo={showInfo} className='h-full' />

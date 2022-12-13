@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth0 } from '../hooks'
 import { NavLink, BrowserRouter as Router, Switch, Route, withRouter, Redirect } from 'react-router-dom'
-import { Dashboard, WebsiteEditor, EmailEditor, AccessControl, Account, KanBan } from '.'
+import { Dashboard, WebsiteEditor, EmailEditor, AccessControl, Account } from '.'
 import { PrivateRoute, PleaseLogin, Unauthorized, AccountMenu } from '../components'
 import { getRole, isAuthorized, isAdmin } from '../utilities'
 
@@ -14,11 +14,14 @@ export const App = props => {
 
   return <div className='h-screen'>
     {isAuthenticated && <nav className='h-12 flex bg-primary-600 shadow-lg text-gray-300 text-sm sm:text-base overflow-x-scroll'>
-      {canView && <NavLink to='/legacy-dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
+      {canView && <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
         Dashboard
       </NavLink>}
-      {/* {canView && <NavLink to='/dashboard' className={linkClasses} activeClassName='text-white bg-primary-500'>
+      {/* {canView && <NavLink to='/help-listings' className={linkClasses} activeClassName='text-white bg-primary-500'>
         Offers/Requests
+      </NavLink>} */}
+      {/* {canView && <NavLink to='/bless-nominations' className={linkClasses} activeClassName='text-white bg-primary-500'>
+        Blessing Nominations
       </NavLink>} */}
       {/* <NavLink to='/email-editor' className={linkClasses} activeClassName='text-white bg-primary-500'>
         Email Editor
@@ -29,11 +32,12 @@ export const App = props => {
       {isAdmin(user) && <NavLink to='/access-control' className={linkClasses} activeClassName='text-white bg-primary-500'>
         User Management
       </NavLink>}
-      <AccountMenu className={`ml-auto ${linkClasses}`} />
+      <AccountMenu className={`ml-auto w-16 sm:w-20 flex-shrink-0 ${linkClasses}`} />
     </nav>}
     <Switch>
-      <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/legacy-dashboard' component={withRouter(Dashboard)} />
       <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/dashboard' component={withRouter(Dashboard)} />
+      {/* <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/dashboard' component={withRouter(HelpKanBan)} /> */}
+      {/* <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/bless-nominations' component={withRouter(BlessNominations)} /> */}
       <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/website' component={withRouter(WebsiteEditor)} />
       <PrivateRoute allowedRoles={['admin']} path='/access-control' component={withRouter(AccessControl)} />
       <PrivateRoute allowedRoles={['admin', 'editor', 'viewer']} path='/account' component={withRouter(Account)} />

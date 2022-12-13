@@ -32,7 +32,7 @@ export const WebsiteEditor = ({ className = '', style = {} }) => {
   useLogError(error)
   useLogError(createError)
 
-  return <div className='flex flex-no-wrap'>
+  return <div className='flex flex-nowrap'>
     {!isSmallScreen && <aside className='w-48 border-r border-gray-300'>
       <ul>
         {subPageOptions.map(option => {

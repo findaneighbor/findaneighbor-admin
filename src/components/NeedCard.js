@@ -34,7 +34,7 @@ export const NeedCard = ({ className = '', style = {}, id, status, description, 
             {name}
             {!greeted && <FontAwesomeIcon icon={faCommentSlash} className='ml-2' />}
           </a>
-          {markingGreeted && <MarkGreeted id={id} greeted={greeted} hide={() => setMarkingGreeted(false)} request />}
+          {markingGreeted && <MarkGreeted id={reqId} greeted={greeted} hide={() => setMarkingGreeted(false)} request />}
         </h3>
         <a className='text-secondary-500' href={googleMapsURL(address, zip)} target='_blank' rel='noopener noreferrer'>
           {address} / {zip}
@@ -78,9 +78,8 @@ export const NeedCard = ({ className = '', style = {}, id, status, description, 
         </div>
       </>
       : <div className='flex flex-wrap mt-4'>
-        <div key={id} className={`pill mr-2 mb-2 capitalize ${stat.bgColor} ${stat.bgTextColor}`}>
+        <div key={id} className={`pill mr-2 mb-2 capitalize text-primary-500`}>
           {label}
-          <FontAwesomeIcon icon={stat.icon} className='ml-2' />
         </div>
       </div>}
   </div>

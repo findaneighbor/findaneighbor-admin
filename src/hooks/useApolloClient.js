@@ -9,7 +9,7 @@ const createClient = token => {
   // Create an http link:
   const httpLink = new HttpLink({
     uri: process.env.NODE_ENV === 'production'
-      ? 'https://find-a-neighbor.herokuapp.com/v1/graphql'
+      ? 'https://stunning-mammal-89.hasura.app/v1/graphql'
       : 'http://localhost:8080/v1/graphql',
     headers: {
       Authorization: `Bearer ${token}`
@@ -19,7 +19,7 @@ const createClient = token => {
   // Create a WebSocket link:
   const wsLink = new WebSocketLink({
     uri: process.env.NODE_ENV === 'production'
-      ? `wss://find-a-neighbor.herokuapp.com/v1/graphql`
+      ? `wss://stunning-mammal-89.hasura.app/v1/graphql`
       : `ws://localhost:8080/v1/graphql`,
     options: {
       reconnect: true,

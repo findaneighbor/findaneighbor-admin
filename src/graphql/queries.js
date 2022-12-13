@@ -81,6 +81,16 @@ export const REQUEST_NEEDS_SUB = gql`
         label
         id
       }
+      match {
+        id
+        offer_need {
+          id
+          offer_to_help {
+            id
+            name
+          }
+        }
+      }
       request_for_help {
         id
         address
@@ -252,3 +262,46 @@ export const SUCCESS_STORIES_SUB = gql`
   }
 `
 
+export const BLESSING_NOMINATION_SUB = gql`
+  subscription blessingNominationSub (
+    $search: String,
+    $statusList: [String!]
+  ) {
+    blessing_nomination (
+      where: {
+        _and: [
+          {
+            _or: [
+              { nominator_name: { _ilike: $search } },
+              { nominator_address: { _ilike: $search } },
+              { nominator_zip: { _ilike: $search } },
+              { nominator_email: { _ilike: $search } },
+              { nominator_phone: { _ilike: $search } },
+              { neighbor_name: { _ilike: $search } },
+              { neighbor_address: { _ilike: $search } },
+              { neighbor_zip: { _ilike: $search } },
+              { nominator_affiliations: { _ilike: $search } }
+            ]
+          },
+          { status: { _in: $statusList } }
+        ]
+      }
+    ) {
+      id
+      nominator_name
+      nominator_email
+      nominator_phone
+      nominator_text_permission
+      nominator_address
+      nominator_zip
+      nominator_affiliations
+      neighbor_name
+      neighbor_address
+      neighbor_zip
+      reason
+      financial_value
+      timeframe
+      status
+    }
+  }
+`

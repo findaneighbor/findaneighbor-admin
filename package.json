@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "main": "index.html",
   "scripts": {
-    "start": "parcel serve src/index.html",
-    "build": "parcel build src/index.html --out-dir public",
+    "start": "MODE=development parcel serve src/index.html",
+    "build": "MODE=production parcel build src/index.html --no-scope-hoist",
     "stage": "now && now rm findaneighbor-admin -ys",
     "prod": "now --prod && now rm findaneighbor-admin -ys"
   },
@@ -25,10 +25,10 @@
   },
   "homepage": "https://github.com/tehpsalmist/findaneighbor-admin#readme",
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
-    "autoprefixer": "^9.8.6",
-    "parcel": "^1.12.4",
-    "tailwindcss": "^1.9.0"
+    "autoprefixer": "^10.2.5",
+    "parcel": "^2.8.1",
+    "process": "^0.11.10",
+    "tailwindcss": "^2.2.19"
   },
   "dependencies": {
     "@apollo/react-hooks": "^3.1.5",
@@ -39,14 +39,20 @@
     "apollo-link-ws": "^1.0.20",
     "auth0-spa-js": "^1.6.5",
     "graphql": "^14.7.0",
-    "react": "latest",
-    "react-dom": "latest",
+    "react": "^17",
+    "react-dom": "^17",
     "react-router-dom": "^5.2.0",
+    "react-select": "^3.1.1",
     "react-smooth-dnd": "^0.11.1",
     "subscriptions-transport-ws": "^0.9.18"
   },
-  "browserslist": [
-    "defaults",
-    "not IE 11"
-  ]
+  "app": "public/index.html",
+  "targets": {
+    "main": false,
+    "app": {
+      "engines": {
+        "browsers": "Chrome 70"
+      }
+    }
+  }
 }
