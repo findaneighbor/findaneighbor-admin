@@ -20,14 +20,14 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
   const [offerZipSort, setOfferZipSort] = useRememberedState('offerZipSort', offerVariables.order.zip)
 
   const [requestNeedList, setRequestNeedList] = useRememberedState('requestNeedList', 
-    (requestVariables.needList || []).reduce((m, k) => ({ ...m, [k]: true }), {})
+    (requestVariables.needListFilter?._in || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
   const [offerNeedList, setOfferNeedList] = useRememberedState('offerNeedList', 
-    (offerVariables.needList || []).reduce((m, k) => ({ ...m, [k]: true }), {})
+    (offerVariables.needListFilter?._in || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
-  
+
   const [requestNeedStatuses, setRequestNeedStatuses] = useRememberedState('requestNeedStatuses', 
-    (requestVariables.needStatuses || []).reduce((m, k) => ({ ...m, [k]: true }), {})
+    (requestVariables.needStatusesFilter?._in || []).reduce((m, k) => ({ ...m, [k]: true }), {})
   )
 
   const { data: { need_type: needTypes = [] } = {} } = useQuery(NEED_TYPES)
@@ -220,22 +220,22 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
           </h3>
           {showRequestFiltering && <>
             <TextInput id='request-name-filter' className='mb-4' label='Name' value={requestVariables.name?.split('%').join('') || ''} onChange={value => {
-              const name = value ? `%${value}%` : null
+              const name = value ? `%${value}%` : '%'
 
               setRequestVariables(v => ({ ...v, name }))
             }} />
             <TextInput id='request-zip-filter' className='mb-4' label='Zip Code' value={requestVariables.zip?.split('%').join('') || ''} onChange={value => {
-              const zip = value ? `%${value}%` : null
+              const zip = value ? `%${value}%` : '%'
 
               setRequestVariables(v => ({ ...v, zip }))
             }} />
             <TextInput id='request-email-filter' className='mb-4' label='Email' value={requestVariables.email?.split('%').join('') || ''} onChange={value => {
-              const email = value ? `%${value}%` : null
+              const email = value ? `%${value}%` : '%'
 
               setRequestVariables(v => ({ ...v, email }))
             }} />
             <TextInput id='request-phone-filter' className='mb-4' label='Phone' value={requestVariables.phone?.split('%').join('') || ''} onChange={value => {
-              const phone = value ? `%${value}%` : null
+              const phone = value ? `%${value}%` : '%'
 
               setRequestVariables(v => ({ ...v, phone }))
             }} />
@@ -248,10 +248,10 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
                   setRequestNeedList(l => ({ ...l, [id]: checked }))
                   setRequestVariables(v => {
                     const newList = checked
-                      ? (v.needList || []).concat(id)
-                      : (v.needList || []).filter(i => i !== id)
+                      ? (v.needListFilter?._in || []).concat(id)
+                      : (v.needListFilter?._in || []).filter(i => i !== id)
 
-                    return { ...v, needList: newList.length ? newList : null }
+                    return { ...v, needListFilter: newList.length ? { _in: newList } : {} }
                   })
                 }} />
                 {label}
@@ -266,10 +266,10 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
                   setRequestNeedStatuses(l => ({ ...l, [status]: checked }))
                   setRequestVariables(v => {
                     const newList = checked
-                      ? (v.needStatuses || []).concat(status)
-                      : (v.needStatuses || []).filter(s => s !== status)
+                      ? (v.needStatusesFilter?._in || []).concat(status)
+                      : (v.needStatusesFilter?._in || []).filter(s => s !== status)
 
-                    return { ...v, needStatuses: newList.length ? newList : null }
+                    return { ...v, needStatusesFilter: newList.length ? { _in: newList } : {} }
                   })
                 }} />
                 <span className='capitalize'>{status}</span>
@@ -284,22 +284,22 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
           </h3>
           {showOfferFiltering && <>
             <TextInput id='offer-name-filter' className='mb-4' label='Name' value={offerVariables.name?.split('%').join('') || ''} onChange={value => {
-              const name = value ? `%${value}%` : null
+              const name = value ? `%${value}%` : '%'
 
               setOfferVariables(v => ({ ...v, name  }))
             }} />
             <TextInput id='offer-zip-filter' className='mb-4' label='Zip Code' value={offerVariables.zip?.split('%').join('') || ''} onChange={value => {
-              const zip = value ? `%${value}%` : null
+              const zip = value ? `%${value}%` : '%'
 
               setOfferVariables(v => ({ ...v, zip  }))
             }} />
             <TextInput id='offer-email-filter' className='mb-4' label='Email' value={offerVariables.email?.split('%').join('') || ''} onChange={value => {
-              const email = value ? `%${value}%` : null
+              const email = value ? `%${value}%` : '%'
 
               setOfferVariables(v => ({ ...v, email  }))
             }} />
             <TextInput id='offer-phone-filter' className='mb-4' label='Phone' value={offerVariables.phone?.split('%').join('') || ''} onChange={value => {
-              const phone = value ? `%${value}%` : null
+              const phone = value ? `%${value}%` : '%'
 
               setOfferVariables(v => ({ ...v, phone  }))
             }} />
@@ -312,22 +312,22 @@ export const Controls = ({ showInfo, setShowInfo, offerVariables, setOfferVariab
                   setOfferNeedList(l => ({ ...l, [id]: checked }))
                   setOfferVariables(v => {
                     const newList = checked
-                      ? (v.needList || []).concat(id)
-                      : (v.needList || []).filter(i => i !== id)
+                      ? (v.needListFilter?._in || []).concat(id)
+                      : (v.needListFilter?._in || []).filter(i => i !== id)
 
-                    return { ...v, needList: newList.length ? newList : null }
+                    return { ...v, needListFilter: newList.length ? { _in: newList } : {} }
                   })
                 }} />
                 {label}
               </label>)}
             </div>
             <label className='flex items-center cursor-pointer'>
-              <input type='checkbox' className='form-checkbox mr-2' checked={offerVariables.advocate || false} onChange={e => {
+              <input type='checkbox' className='form-checkbox mr-2' checked={offerVariables.advocate?._eq || false} onChange={e => {
                 const checked = e.target.checked
                 
-                setOfferVariables(v => ({ ...v, advocate: checked || null }))
+                setOfferVariables(v => ({ ...v, advocate: checked ? { _eq: checked } : {} }))
               }} />
-              Show Neighborhood Advocate Candidates
+              Show Only Matching Neighborhood Advocate Candidates
             </label>
           </>}
         </div>

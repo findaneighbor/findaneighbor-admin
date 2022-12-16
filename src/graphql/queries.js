@@ -6,8 +6,8 @@ export const REQUESTS_FOR_HELP_SUB = gql`
     $zip: String,
     $email: String,
     $phone: String,
-    $needList: [Int!],
-    $needStatuses: [String!],
+    $needListFilter: Int_comparison_exp!,
+    $needStatusesFilter: String_comparison_exp!,
     $order: [request_for_help_order_by!]
   ) {
     request_for_help(
@@ -17,8 +17,8 @@ export const REQUESTS_FOR_HELP_SUB = gql`
           { zip: { _ilike: $zip } },
           { email: { _ilike: $email } },
           { phone: { _ilike: $phone } },
-          { request_needs: { need_type_id: { _in: $needList } } },
-          { request_needs: { status: { _in: $needStatuses } } },
+          { request_needs: { need_type_id: $needListFilter } },
+          { request_needs: { status: $needStatusesFilter } },
         ]
       },
       order_by: $order
@@ -112,8 +112,8 @@ export const OFFERS_TO_HELP_SUB = gql`
     $zip: String,
     $email: String,
     $phone: String,
-    $needList: [Int!],
-    $advocate: Boolean,
+    $needListFilter: Int_comparison_exp!,
+    $advocate: Boolean_comparison_exp!,
     $order: [offer_to_help_order_by!]
   ) {
     offer_to_help(
@@ -123,8 +123,8 @@ export const OFFERS_TO_HELP_SUB = gql`
           { zip: { _ilike: $zip } },
           { email: { _ilike: $email } },
           { phone: { _ilike: $phone } },
-          { offer_needs: { need_type_id: { _in: $needList } } },
-          { advocate: { _eq: $advocate } }
+          { offer_needs: { need_type_id: $needListFilter } },
+          { advocate: $advocate }
         ]
       },
       order_by: $order

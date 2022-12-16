@@ -7,25 +7,25 @@ import { Controls } from '.'
 import { statuses } from '../utilities'
 
 export const Dashboard = ({ className = '', style = {} }) => {
-  const [offerVariables, setOfferVariables] = useRememberedState('offerVariables', {
-    name: null,
-    zip: null,
-    email: null,
-    phone: null,
-    needList: null,
-    advocate: null,
+  const [offerVariables, setOfferVariables] = useRememberedState('offerVariablesV2', {
+    name: '%',
+    zip: '%',
+    email: '%',
+    phone: '%',
+    needListFilter: {},
+    advocate: {},
     order: {
       created_at: 'desc',
       zip: null
     }
   })
-  const [requestVariables, setRequestVariables] = useRememberedState('requestVariables', {
-    name: null,
-    zip: null,
-    email: null,
-    phone: null,
-    needList: null,
-    needStatuses: statuses.filter(s => !['completed', 'withdrawn'].includes(s)),
+  const [requestVariables, setRequestVariables] = useRememberedState('requestVariablesV2', {
+    name: '%',
+    zip: '%',
+    email: '%',
+    phone: '%',
+    needListFilter: {},
+    needStatusesFilter: { _in: statuses.filter(s => !['completed', 'withdrawn'].includes(s)) },
     order: {
       created_at: 'desc',
       zip: null
@@ -74,7 +74,7 @@ export const Dashboard = ({ className = '', style = {} }) => {
       Offers To Help
       <span className='ml-2 text-xl'>({offers.length})</span>
     </h2>
-    <ul className='offers flex flex-nowrap items-stretch h-auto sm:block h-full overflow-scroll'>
+    <ul className='offers flex flex-nowrap items-stretch sm:block h-full overflow-scroll'>
       {offers.map(offer => (
         <li className='flex-shrink-0 w-sm max-w-100vw sm:w-full mb-2 p-1 md:p-2 transition-all duration-200 ease-in-out' key={offer.id}>
           <OfferListCard {...offer} showInfo={showInfo} className='h-full' />

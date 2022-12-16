@@ -22,7 +22,7 @@ const createClient = token => {
       ? `wss://stunning-mammal-89.hasura.app/v1/graphql`
       : `ws://localhost:8080/v1/graphql`,
     options: {
-      reconnect: true,
+      reconnect: !!token,
       connectionParams: () => ({
         headers: {
           Authorization: `Bearer ${token}`
